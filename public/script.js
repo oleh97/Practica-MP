@@ -6,7 +6,7 @@ var isErasing;
 function setup() {
     createCanvas(800,600);
     isErasing = false;
-    socket = io.connect("http://pinturilloperomal.ddns.net/");
+    socket = io();
     socket.on("mouse", updateCanvas);
     socket.on("delete", deleteLocal);
 }
