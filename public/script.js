@@ -60,5 +60,4 @@ function draw() {
     for(var i in lines) {
         line(lines[i].x, lines[i].y, lines[i].x1, lines[i].y1);
     }
-
 }
