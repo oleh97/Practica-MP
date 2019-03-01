@@ -28,7 +28,7 @@ var io = socket(server);
 */
 io.sockets.on('connection', newConnection);
 
-//This is the function that is going to handle each connection
+
 function newConnection(socket) {
     //Logs the time and the IP of the new device
     var d = new Date();
@@ -40,18 +40,36 @@ function newConnection(socket) {
         + d.getMinutes() + ":"
         + d.getSeconds());
 
-
-    //for(var i in lines) {
-        socket.emit('mouse', lines);
-    //}
-    socket.on("mouse", sendData);
-    function sendData(data) {
-        lines.push(data);
-        socket.broadcast.emit('mouse', data);
+    if(lines.length != 0) {
+        console.log("SENDING DATA TO THE NEW DEVICE")
+        let chunk = 1000;
+        let tempArray = [];
+        for (let i = 0,j = lines.length; i<j; i+=chunk) {
+            tempArray = lines.slice(i,i+chunk);
+            socket.emit("refresh", tempArray);
+        }
     }
-    socket.on("delete", deleteLines);
-    function deleteLines() {
+
+    socket.on("mouse", emitData);
+    function emitData(data) {
+        lines.push(data);
+        socket.broadcast.emit("mouse", data);
+    }
+
+    socket.on("reset", resetLocal);
+    function resetLocal() {
         lines = [];
-        socket.broadcast.emit("delete");
+        socket.broadcast.emit("serverReset");
+    }
+    socket.on('disconnect', disconected);
+    function disconected() {
+        var d = new Date();
+        var ip = socket.request.connection.remoteAddress;
+        console.log('Disconnected: ' + ip + ', At: ' + d.getDate() + "/"
+            + (d.getMonth()+1)  + "/"
+            + d.getFullYear() + " @ "
+            + d.getHours() + ":"
+            + d.getMinutes() + ":"
+            + d.getSeconds());
     }
 }
