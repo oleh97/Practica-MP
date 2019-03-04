@@ -1,9 +1,31 @@
 var socket;
 
+ class Line {
+    constructor(x,y,x1,y1,color) {
+        this.x = x;
+        this.y = y;
+        this.x1 = x1;
+        this.y1 = y1;
+        this.color = color;
+    }
+
+    drawLine() {
+        stroke(this.color);
+        line(this.x, this.y, this.x1, this.y1);
+    }
+}
+
+function getCurrentColor() {
+     return document.getElementById("html5colorpicker").value;
+}
+
+module.exports = Line;
+
 function setup() {
     createCanvas(800,600);
     background(150);
-    socket = io();
+    //socket = io();
+    socket = io.connect("http://pinturillo.ddns.net", { secure: true });
     socket.on("mouse", updateCanvas);
     socket.on("serverReset", whiteCanvas);
     socket.on("refresh", refreshData);
@@ -11,16 +33,19 @@ function setup() {
 
 function refreshData(data) {
     strokeWeight(20);
-    stroke(80,15,200);
-    console.log(data.length)
-    for(let i in data){
-        line(data[i].x, data[i].y, data[i].x1, data[i].y1);
-    }
+    let l = new Line(data.x,data.y, data.x1, data.y1, data.color);
+    l.drawLine();
+    socket.emit("received");
 }
 
 function reset() {
     background(150);
     socket.emit("reset");
+}
+
+function sendMessage() {
+    socket.emit("chatMessage", $("#message").val());
+    $("#message").val('');
 }
 
 function whiteCanvas() {
@@ -29,20 +54,14 @@ function whiteCanvas() {
 
 function updateCanvas(data) {
     strokeWeight(20);
-    stroke(80,15,200);
-    line(data.x, data.y, data.x1, data.y1);
+    let l = new Line(data.x,data.y, data.x1, data.y1, data.color);
+    l.drawLine();
 }
 
 function mouseDragged() {
-    let data = {
-        x: mouseX,
-        y: mouseY,
-        x1: pmouseX,
-        y1: pmouseY
-    };
+    let l = new Line(mouseX, mouseY, pmouseX, pmouseY, getCurrentColor());
     strokeWeight(20);
-    stroke(80,15,200);
-    line(data.x, data.y, data.x1, data.y1);
-    socket.emit("mouse", data);
+    l.drawLine();
+    socket.emit("mouse", l);
 }
 

@@ -2,9 +2,10 @@
 const express = require("express");
 const socket = require("socket.io");
 
+
 //Start the server to listen to the port 80
-var app = express();
-var server = app.listen(80);
+const app = express();
+const server = app.listen(8080);
 
 /*Store all the drawed lines in a room
 *
@@ -12,7 +13,9 @@ var server = app.listen(80);
 * to improve efficiency
 * For now we'll keep it like this
 */
+const Line = require("./public/client");
 var lines = [];
+var chunkReceived;
 
 //This will tell the server to only show what's on the public folder
 app.use(express.static('public'));
@@ -26,9 +29,13 @@ var io = socket(server);
 /*When the socket gets a new connection petition it will start emitting and receiving data
 * and broadcasting it to all the other connected devices
 */
-io.sockets.on('connection', newConnection);
+io.on('connection', newConnection);
 
-
+/*Inside this function there will be all the functionality on the server side
+* and all the methods inside will handle each client
+*
+* There are 2 types of
+*/
 function newConnection(socket) {
     //Logs the time and the IP of the new device
     var d = new Date();
@@ -40,20 +47,54 @@ function newConnection(socket) {
         + d.getMinutes() + ":"
         + d.getSeconds());
 
+    /*Just in case someone refreshes the webpage, the server will need to send
+        all the data again. It will split the lines array in chunks of 1000 and ç
+        send those, in order to not overload the sockets connections
+     */
     if(lines.length != 0) {
-        console.log("SENDING DATA TO THE NEW DEVICE")
-        let chunk = 1000;
-        let tempArray = [];
-        for (let i = 0,j = lines.length; i<j; i+=chunk) {
-            tempArray = lines.slice(i,i+chunk);
-            socket.emit("refresh", tempArray);
+        // set this to whatever number of items you can process at once
+        var chunk = 500;
+        var timeOut = 25;
+        var index = 0;
+        console.log("//SENDING "+lines.length+" LINES TO THE NEW DEVICE"+" (RATE: "+
+                        chunk+" every "+ timeOut+ " ms)");
+        function doChunk() {
+            var cnt = chunk;
+            while (cnt-- && index < lines.length) {
+                // process array[index] here
+                chunkReceived = false;
+                socket.emit("refresh", lines[index]);
+                checkReceived();
+                ++index;
+            }
+            if (index < lines.length) {
+                // set Timeout for async iteration
+                setTimeout(doChunk, timeOut);
+            }
+            console.log("               //:"+(chunk - cnt - 1)+" LINES UPDATED");
         }
+        doChunk();
+
+        //socket.emit("refresh", lines);
+        //console.log("//DATA SENT CORRECTLY");
+    }
+
+    socket.on("received", setReceived);
+    function setReceived() {
+        chunkReceived = true;
     }
 
     socket.on("mouse", emitData);
     function emitData(data) {
-        lines.push(data);
+        let l = new Line(data.x,data.y, data.x1, data.y1, data.color);
+        //console.log(l);
+        lines.push(l);
         socket.broadcast.emit("mouse", data);
+    }
+
+    socket.on("chatMessage", handleMessage);
+    function handleMessage(data) {
+        console.log(data);
     }
 
     socket.on("reset", resetLocal);
@@ -71,5 +112,10 @@ function newConnection(socket) {
             + d.getHours() + ":"
             + d.getMinutes() + ":"
             + d.getSeconds());
+    }
+    function checkReceived() {
+        if(chunkReceived == false) {
+            setTimeout(checkReceived, 1);
+        }
     }
 }
