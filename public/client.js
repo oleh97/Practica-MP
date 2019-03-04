@@ -1,5 +1,6 @@
 var socket;
 
+//Class line to create the objects we will store
  class Line {
     constructor(x,y,x1,y1,color) {
         this.x = x;
@@ -8,19 +9,22 @@ var socket;
         this.y1 = y1;
         this.color = color;
     }
-
+    //Function that draws a line given its coords
     drawLine() {
         stroke(this.color);
         line(this.x, this.y, this.x1, this.y1);
     }
 }
 
+//Gets the color that the client has selected
 function getCurrentColor() {
      return document.getElementById("html5colorpicker").value;
 }
 
+//So we can use the lines objects in the server side
 module.exports = Line;
 
+ //Creates the canvas and sets the functions that will receive data from the server
 function setup() {
     createCanvas(800,600);
     background(150);
@@ -31,18 +35,20 @@ function setup() {
     socket.on("refresh", refreshData);
 }
 
+//Every time any client connects, the server will push all the data to him
 function refreshData(data) {
     strokeWeight(20);
     let l = new Line(data.x,data.y, data.x1, data.y1, data.color);
     l.drawLine();
-    socket.emit("received");
 }
 
+//Emits a reset method to all the clients
 function reset() {
     background(150);
     socket.emit("reset");
 }
 
+//NOT WORKING YET
 function sendMessage() {
     socket.emit("chatMessage", $("#message").val());
     $("#message").val('');
@@ -52,12 +58,18 @@ function whiteCanvas() {
     background(150);
 }
 
+/*
+    Everytime the server pushes new data to the client, it will draw
+    all the new lines that other users have painted
+ */
+
 function updateCanvas(data) {
     strokeWeight(20);
     let l = new Line(data.x,data.y, data.x1, data.y1, data.color);
     l.drawLine();
 }
 
+//Anytime the client drags the mouse, it will create new lines and emitting them to the server
 function mouseDragged() {
     let l = new Line(mouseX, mouseY, pmouseX, pmouseY, getCurrentColor());
     strokeWeight(20);

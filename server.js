@@ -15,7 +15,7 @@ const server = app.listen(8080);
 */
 const Line = require("./public/client");
 var lines = [];
-var chunkReceived;
+var allDataSent;
 
 //This will tell the server to only show what's on the public folder
 app.use(express.static('public'));
@@ -48,42 +48,38 @@ function newConnection(socket) {
         + d.getSeconds());
 
     /*Just in case someone refreshes the webpage, the server will need to send
-        all the data again. It will split the lines array in chunks of 1000 and ç
+        all the data again. It will split the lines array in chunks of 500 and
         send those, in order to not overload the sockets connections
      */
     if(lines.length != 0) {
         // set this to whatever number of items you can process at once
         var chunk = 500;
-        var timeOut = 25;
+        var timeOut = 50;
         var index = 0;
         console.log("//SENDING "+lines.length+" LINES TO THE NEW DEVICE"+" (RATE: "+
-                        chunk+" every "+ timeOut+ " ms)");
+            chunk+" every "+ timeOut+ " ms)");
         function doChunk() {
             var cnt = chunk;
             while (cnt-- && index < lines.length) {
                 // process array[index] here
-                chunkReceived = false;
                 socket.emit("refresh", lines[index]);
-                checkReceived();
                 ++index;
             }
             if (index < lines.length) {
                 // set Timeout for async iteration
                 setTimeout(doChunk, timeOut);
             }
-            console.log("               //:"+(chunk - cnt - 1)+" LINES UPDATED");
+            console.log("               //:" + (chunk - cnt - 1) + " LINES UPDATED");
         }
         doChunk();
-
-        //socket.emit("refresh", lines);
-        //console.log("//DATA SENT CORRECTLY");
     }
 
-    socket.on("received", setReceived);
-    function setReceived() {
-        chunkReceived = true;
-    }
-
+    /*
+        Anytime the client drags the mouse sends data
+        it emits each line to the server and then stores all the data.
+        Then the server will emit the received lines to everybody else
+        connected.
+     */
     socket.on("mouse", emitData);
     function emitData(data) {
         let l = new Line(data.x,data.y, data.x1, data.y1, data.color);
@@ -92,16 +88,23 @@ function newConnection(socket) {
         socket.broadcast.emit("mouse", data);
     }
 
+    //NOT WORKING YET
     socket.on("chatMessage", handleMessage);
     function handleMessage(data) {
         console.log(data);
     }
 
+    /*
+        When someone presses the Reset button, the server deletes all the stored data
+        and resets the canvas in each connected client
+     */
     socket.on("reset", resetLocal);
     function resetLocal() {
         lines = [];
         socket.broadcast.emit("serverReset");
     }
+
+    //Logs in the console each time any client disconnects
     socket.on('disconnect', disconected);
     function disconected() {
         var d = new Date();
@@ -112,10 +115,5 @@ function newConnection(socket) {
             + d.getHours() + ":"
             + d.getMinutes() + ":"
             + d.getSeconds());
-    }
-    function checkReceived() {
-        if(chunkReceived == false) {
-            setTimeout(checkReceived, 1);
-        }
     }
 }
