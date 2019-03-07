@@ -29,7 +29,7 @@ function setup() {
     createCanvas(800,600);
     background(150);
     //socket = io();
-    socket = io.connect("http://pinturillo.ddns.net", { secure: true });
+    socket = io.connect();
     socket.on("mouse", updateCanvas);
     socket.on("serverReset", whiteCanvas);
     socket.on("refresh", refreshData);
@@ -69,7 +69,7 @@ function updateCanvas(data) {
     l.drawLine();
 }
 
-//Anytime the client drags the mouse, it will create new lines and emitting them to the server
+//Anytime the client drags the mouse, it will create new lines and emit them to the server
 function mouseDragged() {
     let l = new Line(mouseX, mouseY, pmouseX, pmouseY, getCurrentColor());
     strokeWeight(20);
