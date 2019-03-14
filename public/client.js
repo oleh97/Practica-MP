@@ -26,7 +26,9 @@ module.exports = Line;
 
  //Creates the canvas and sets the functions that will receive data from the server
 function setup() {
-    createCanvas(800,600);
+    let canvas = createCanvas(800,600);
+    canvas.parent("canvas");
+
     background(150);
     //socket = io();
     socket = io.connect();
@@ -50,7 +52,7 @@ function reset() {
 
 //NOT WORKING YET
 function sendMessage() {
-    socket.emit("chatMessage", $("#message").val());
+    socket.emit("chatMessage", $("#message").value);
     $("#message").val('');
 }
 
