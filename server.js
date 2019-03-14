@@ -90,8 +90,9 @@ function newConnection(socket) {
 
     //NOT WORKING YET
     socket.on("chatMessage", handleMessage);
-    function handleMessage(data) {
-        console.log(data);
+    function handleMessage(msg) {
+
+        console.log(msg);
     }
 
     /*

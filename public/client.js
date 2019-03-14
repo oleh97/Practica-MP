@@ -52,8 +52,10 @@ function reset() {
 
 //NOT WORKING YET
 function sendMessage() {
-    socket.emit("chatMessage", $("#message").value);
-    $("#message").val('');
+    //console.log(document.getElementById("message").value)
+    let msg = document.getElementById("message").value;
+    socket.emit("chatMessage", msg);
+    msg = '';
 }
 
 function whiteCanvas() {
