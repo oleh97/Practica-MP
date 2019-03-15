@@ -1,4 +1,21 @@
 
 #canvas {
-    border: solid;
+    position: fixed;
+    top: 5%;
+    left: 20%;
+    border: solid 2px;
+    height: 600px;
+    width: 800px;
+}
+.buttonsBlock {
+    float: left;
+    margin-top: 15%;
+
+}
+
+.button {
+    margin: 10px;
+}
+#html5colorpicker {
+
 }
