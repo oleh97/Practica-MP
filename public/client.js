@@ -81,3 +81,9 @@ function mouseDragged() {
     socket.emit("mouse", l);
 }
 
+function createRoom() {
+    let nameRoom = document.getElementsByName("roomName");
+    let namePass = document.getElementsByName("roomPassword")
+    socket.emit("createRoom", nameRoom, namePass);
+}
+

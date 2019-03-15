@@ -13,8 +13,10 @@ const server = app.listen(80);
 * to improve efficiency
 * For now we'll keep it like this
 */
+const Room = require("./room")
 const Line = require("./public/client");
 var lines = [];
+var rooms = [];
 var allDataSent;
 
 //This will tell the server to only show what's on the public folder
@@ -103,6 +105,13 @@ function newConnection(socket) {
     function resetLocal() {
         lines = [];
         socket.broadcast.emit("serverReset");
+    }
+
+    socket.on("createRoom", createRoom);
+    function createRoom(name, pass) {
+        let r = new Room(name, pass);
+        rooms.push(r);
+        console.log(rooms)
     }
 
     //Logs in the console each time any client disconnects
