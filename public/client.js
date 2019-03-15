@@ -29,7 +29,7 @@ function setup() {
     let canvas = createCanvas(800,600);
     canvas.parent("canvas");
 
-    background(150);
+    background(250);
     //socket = io();
     socket = io.connect();
     socket.on("mouse", updateCanvas);
@@ -46,7 +46,7 @@ function refreshData(data) {
 
 //Emits a reset method to all the clients
 function reset() {
-    background(150);
+    background(250);
     socket.emit("reset");
 }
 
