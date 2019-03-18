@@ -6,31 +6,27 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
     <script src="client.js"></script>
+    <script>
+        var $ = jQuery;
+        function loadView(vista) {
+            $('#content').load(vista+".html");
+        }
+    </script>
     <link rel="stylesheet" type="text/css" href="index.css">
 </head>
-<body>
-    <div id="canvas">
-    </div>
-<<<<<<< HEAD
-    <button id="reset" onclick="reset()">Resetear</button>
+<body id="content">
+<div class="buttonsBlock">
+    <button id="reset" class="button" onclick="reset()">Resetear</button>
+    <label for="html5colorpicker">Color : </label>
+    <input type="color" id="html5colorpicker" value="#000000" class="button">
     <form>
         <input id="message">
-        <button type="button" id="send" onclick="sendMessage()">Send</button>
+        <button type="button" id="send" class="button" onclick="sendMessage()">Send</button>
     </form>
-    <input type="color" id="html5colorpicker" value="#000000">
-    <a href="selectRoom.html">Select Room</a>
-=======
-    <div class="buttonsBlock">
+</div>
 
-        <button id="reset" class="button" onclick="reset()">Resetear</button>
-        <label for="html5colorpicker">Color : </label>
-    <input type="color" id="html5colorpicker" value="#000000" class="button">
-        <form>
-            <input id="message">
-            <button type="button" id="send" class="button" onclick="sendMessage()">Send</button>
-        </form>
-    </div>
->>>>>>> de3116fac5b400572a163dac329bc0fd6db915fa
+<button type="button" id="cambiaVista" class="button" onclick="loadView('selectRoom')">Send</button>
 </body>
 </html>
+
 
