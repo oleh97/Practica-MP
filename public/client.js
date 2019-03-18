@@ -1,5 +1,4 @@
 var socket;
-var $ = require('jquery');
 
 //Class line to create the objects we will store
  class Line {
