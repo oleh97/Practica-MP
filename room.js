@@ -1,5 +1,7 @@
 class Room {
 
+	
+	
     get name() {
         return this._name;
     }
@@ -42,7 +44,7 @@ class Room {
 
     constructor(name, password) {
         this._name = name;
-        this._canvas = createCanvas(800,600);
+        this._canvas = createCanvas(700,700);
         this._users = [];
         if(this._password != '') {
             this._isPublic = true;
@@ -59,6 +61,8 @@ class Room {
         this._users.push(user);
 
     }
+    
 
 }
+
 module.exports = Room;

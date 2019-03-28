@@ -1,15 +1,59 @@
 
+
+body { background-color: #77ACB9; }
+
 #canvas {
+	background-color: #FFFFFF;
     position: fixed;
-    top: 5%;
+    top: 10%;
     left: 20%;
-    border: solid 2px;
-    height: 600px;
-    width: 800px;
+    border: solid 5px;
+    height: 550px;
+    width: 760px;
+    border-radius: 21px 28px 28px 28px;
 }
+
+#points {
+	background-color: #FFFFFF;
+    position: fixed;
+    top: 10%;
+    left: 1%;
+    border: solid 5px;
+    height: 550px;
+    width: 225px;
+    border-radius: 21px 28px 28px 28px;
+}
+
+#letrero {
+    position: fixed;
+    top: 1%;
+    left: 30%;
+	height: 65px;
+    width: 500px;
+}
+
+
+.chat {
+	background-color: #FFFFFF;
+    position: fixed;
+    top: 10%;
+    left: 81%;
+    border: solid 5px;
+    height: 550px;
+    width: 225px;
+    border-radius: 21px 28px 28px 28px;
+}
+
+
+
 .buttonsBlock {
-    float: left;
-    margin-top: 15%;
+    background-color: #FFFFFF;
+    position: fixed;
+    top: 74%;
+    left: 81%;
+    height: 110px;
+    width: 225px;
+    border-radius: 21px 28px 28px 28px;
 
 }
 

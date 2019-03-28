@@ -1,0 +1,32 @@
+{{>header}}
+
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="wrapper fadeInDown">
+        <div id="formContent">
+
+          <!-- Icon -->
+          <div class="fadeIn first">
+            <img src="/img/login_user.png" id="icon" alt="User Icon" />
+          </div>
+
+          <!-- Login Form -->
+          <form action="/login" method="post">
+            <input type="text" id="username" class="fadeIn second" name="username" placeholder="Username">
+            <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password">
+            <input type="submit" class="fadeIn fourth" value="Log In">
+            <input type="hidden" name="_csrf" value="{{token}}" />
+          </form>
+
+          <!-- Remind Passowrd -->
+          <div id="formFooter">
+            <a class="underlineHover" href="/register">Resgistrarse</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{>footer}}

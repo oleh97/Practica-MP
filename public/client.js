@@ -26,10 +26,10 @@ module.exports = Line;
 
  //Creates the canvas and sets the functions that will receive data from the server
 function setup() {
-    let canvas = createCanvas(800,600);
+    let canvas = createCanvas(760,550);
     canvas.parent("canvas");
 
-    background(250);
+    background(240);
     //socket = io();
     socket = io.connect();
     socket.on("mouse", updateCanvas);
