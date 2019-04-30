@@ -3,6 +3,7 @@
 body { background-color: #77ACB9; }
 
 #canvas {
+    overflow:hidden;
 	background-color: #FFFFFF;
     position: fixed;
     top: 10%;

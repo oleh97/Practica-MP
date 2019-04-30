@@ -28,12 +28,12 @@ if (document.form.password.value=='CONTRASEÑA' && document.form.login.value=='U
 <INPUT onclick=go() type=button value=Acceder>
 
 </FORM>   -->
-
-<div id="canvas"></div>
+<div id="main">
 <div id="points"><p align="center">PUNTOS</p></div>
+    <div id="canvas"></div>
 <div class="chat">
     <p align="center">CHAT</p>
-    <div style="height: 70%; border:solid black">
+    <div style="height: 70%; border:solid black 1px">
         <div id="mensajes" style="word-wrap: break-word; overflow: auto; max-height: 95%;
          padding: 5px"></div>
     </div>
@@ -44,6 +44,7 @@ if (document.form.password.value=='CONTRASEÑA' && document.form.login.value=='U
         <input id="message">
         <button type="button" id="send" class="button" onclick="sendMessage()">Send</button>
     </form>
+</div>
 </div>
 <!-- >>>>>>> de3116fac5b400572a163dac329bc0fd6db915fa -->
 </body>
