@@ -35,6 +35,7 @@ function setup() {
     socket.on("mouse", updateCanvas);
     socket.on("serverReset", whiteCanvas);
     socket.on("refresh", refreshData);
+    socket.on("chatClient", addMessage);
 }
 
 //Every time any client connects, the server will push all the data to him
@@ -50,12 +51,30 @@ function reset() {
     socket.emit("reset");
 }
 
+
+function addMessage(msg) {
+
+    if(!msg.length <= 0) {
+        var node = document.createElement("LI");                 // Create a <li> node
+        var textnode = document.createTextNode(msg);         // Create a text node
+        node.appendChild(textnode);                              // Append the text to <li>
+        document.getElementById("mensajes").appendChild(node);
+    }
+}
+
 //NOT WORKING YET
 function sendMessage() {
     //console.log(document.getElementById("message").value)
     let msg = document.getElementById("message").value;
-    socket.emit("chatMessage", msg);
-    msg = '';
+
+    if(!msg.length <= 0) {
+        var node = document.createElement("LI");                 // Create a <li> node
+        var textnode = document.createTextNode(msg);         // Create a text node
+        node.appendChild(textnode);                              // Append the text to <li>
+        document.getElementById("mensajes").appendChild(node);
+        document.getElementById("message").value = '';
+        socket.emit("chatMessage", msg);
+    }
 }
 
 function whiteCanvas() {

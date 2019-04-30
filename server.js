@@ -17,6 +17,7 @@ const Room = require("./room")
 const Line = require("./public/client");
 var lines = [];
 var rooms = [];
+var chat = [];
 var allDataSent;
 
 //This will tell the server to only show what's on the public folder
@@ -75,6 +76,11 @@ function newConnection(socket) {
         }
         doChunk();
     }
+    if(chat.length != 0) {
+        for(let i = 0; i<chat.length; i++) {
+            socket.emit("chatClient", chat[i]);
+        }
+    }
 
     /*
         Anytime the client drags the mouse sends data
@@ -93,8 +99,9 @@ function newConnection(socket) {
     //NOT WORKING YET
     socket.on("chatMessage", handleMessage);
     function handleMessage(msg) {
-
-        console.log(msg);
+        // console.log(msg);
+        chat.push(msg);
+        socket.broadcast.emit("chatClient", msg);
     }
 
     /*
