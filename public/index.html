@@ -28,12 +28,14 @@ if (document.form.password.value=='CONTRASEÑA' && document.form.login.value=='U
 
 </FORM>   -->
 
-
-
     <div id="canvas"></div>
     <div id="points"> <p align="center">PUNTOS</p> </div>
     <div class="chat" >
-    <p align="center">CHAT</p>
+        <p align="center">CHAT</p>
+        <div style="height: 70%; border:solid black">
+            <ul id="mensajes"></ul>
+        </div>
+
     	<button id="reset" class="button" onclick="reset()">Resetear</button>
        	<label for="html5colorpicker">Color : </label>
     	<input type="color" id="html5colorpicker" value="#000000" class="button">
