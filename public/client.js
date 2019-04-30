@@ -55,7 +55,7 @@ function reset() {
 function addMessage(msg) {
 
     if(!msg.length <= 0) {
-        var node = document.createElement("LI");                 // Create a <li> node
+        var node = document.createElement("P");                 // Create a <li> node
         var textnode = document.createTextNode(msg);         // Create a text node
         node.appendChild(textnode);                              // Append the text to <li>
         document.getElementById("mensajes").appendChild(node);
@@ -68,7 +68,7 @@ function sendMessage() {
     let msg = document.getElementById("message").value;
 
     if(!msg.length <= 0) {
-        var node = document.createElement("LI");                 // Create a <li> node
+        var node = document.createElement("P");                 // Create a <li> node
         var textnode = document.createTextNode(msg);         // Create a text node
         node.appendChild(textnode);                              // Append the text to <li>
         document.getElementById("mensajes").appendChild(node);

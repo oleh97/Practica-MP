@@ -9,7 +9,8 @@
     <link rel="stylesheet" type="text/css" href="index.css">
 </head>
 <body>
-<a  href="https://imgbb.com/"><img id="letrero" src="https://i.ibb.co/74twsYJ/cooltext319595733843815.png"  border="0"></a>
+<a href="https://imgbb.com/"><img id="letrero" src="https://i.ibb.co/74twsYJ/cooltext319595733843815.png"
+                                  border="0"></a>
 <!-- <SCRIPT  language=JavaScript> 
 function go(){
 if (document.form.password.value=='CONTRASEÑA' && document.form.login.value=='USUARIO'){ 
@@ -28,23 +29,22 @@ if (document.form.password.value=='CONTRASEÑA' && document.form.login.value=='U
 
 </FORM>   -->
 
-    <div id="canvas"></div>
-    <div id="points"> <p align="center">PUNTOS</p> </div>
-    <div class="chat" >
-        <p align="center">CHAT</p>
-        <div style="height: 70%; border:solid black">
-            <ul id="mensajes">
-            </ul>
-        </div>
-
-    	<button id="reset" class="button" onclick="reset()">Resetear</button>
-       	<label for="html5colorpicker">Color : </label>
-    	<input type="color" id="html5colorpicker" value="#000000" class="button">
-        	<form>
-            	<input id="message">
-            	<button type="button" id="send" class="button" onclick="sendMessage()">Send</button>
-        	</form>
+<div id="canvas"></div>
+<div id="points"><p align="center">PUNTOS</p></div>
+<div class="chat">
+    <p align="center">CHAT</p>
+    <div style="height: 70%; border:solid black">
+        <div id="mensajes" style="word-wrap: break-word; overflow: auto; max-height: 95%;
+         padding: 5px"></div>
     </div>
+    <button id="reset" class="button" onclick="reset()">Resetear</button>
+    <label for="html5colorpicker">Color : </label>
+    <input type="color" id="html5colorpicker" value="#000000" class="button">
+    <form>
+        <input id="message">
+        <button type="button" id="send" class="button" onclick="sendMessage()">Send</button>
+    </form>
+</div>
 <!-- >>>>>>> de3116fac5b400572a163dac329bc0fd6db915fa -->
 </body>
 </html>
