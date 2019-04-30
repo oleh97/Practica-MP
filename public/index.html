@@ -29,13 +29,12 @@ if (document.form.password.value=='CONTRASEÑA' && document.form.login.value=='U
 
 </FORM>   -->
 <div id="main">
-<div id="points"><p align="center">PUNTOS</p></div>
+<div id="points" class="scrollableBox"><p align="center">PUNTOS</p></div>
     <div id="canvas"></div>
 <div class="chat">
     <p align="center">CHAT</p>
     <div style="height: 70%; border:solid black 1px">
-        <div id="mensajes" style="word-wrap: break-word; overflow: auto; max-height: 95%;
-         padding: 5px"></div>
+        <div id="mensajes" class="scrollableBox"></div>
     </div>
     <button id="reset" class="button" onclick="reset()">Resetear</button>
     <label for="html5colorpicker">Color : </label>
