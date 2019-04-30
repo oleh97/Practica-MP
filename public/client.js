@@ -1,14 +1,15 @@
 var socket;
 
 //Class line to create the objects we will store
- class Line {
-    constructor(x,y,x1,y1,color) {
+class Line {
+    constructor(x, y, x1, y1, color) {
         this.x = x;
         this.y = y;
         this.x1 = x1;
         this.y1 = y1;
         this.color = color;
     }
+
     //Function that draws a line given its coords
     drawLine() {
         stroke(this.color);
@@ -18,17 +19,16 @@ var socket;
 
 //Gets the color that the client has selected
 function getCurrentColor() {
-     return document.getElementById("html5colorpicker").value;
+    return document.getElementById("html5colorpicker").value;
 }
 
 //So we can use the lines objects in the server side
 module.exports = Line;
 
- //Creates the canvas and sets the functions that will receive data from the server
+//Creates the canvas and sets the functions that will receive data from the server
 function setup() {
-    let canvas = createCanvas(760,550);
+    let canvas = createCanvas(760, 550);
     canvas.parent("canvas");
-
     background(240);
     //socket = io();
     socket = io.connect();
@@ -36,12 +36,22 @@ function setup() {
     socket.on("serverReset", whiteCanvas);
     socket.on("refresh", refreshData);
     socket.on("chatClient", addMessage);
+    socket.on("clientName", addClient);
+}
+
+function askNick() {
+    var name = window.prompt("Escribe tu nick: ");
+    var node = document.createElement("P");                 // Create a <li> node
+    var textnode = document.createTextNode(name);
+    node.appendChild(textnode);
+    document.getElementById("points").appendChild(node);
+    socket.emit("newClientNick", name);
 }
 
 //Every time any client connects, the server will push all the data to him
 function refreshData(data) {
     strokeWeight(20);
-    let l = new Line(data.x,data.y, data.x1, data.y1, data.color);
+    let l = new Line(data.x, data.y, data.x1, data.y1, data.color);
     l.drawLine();
 }
 
@@ -54,20 +64,25 @@ function reset() {
 
 function addMessage(msg) {
 
-    if(!msg.length <= 0) {
+    if (!msg.length <= 0) {
         var node = document.createElement("P");                 // Create a <li> node
         var textnode = document.createTextNode(msg);         // Create a text node
         node.appendChild(textnode);                              // Append the text to <li>
         document.getElementById("mensajes").appendChild(node);
     }
 }
-
+function addClient(nick) {
+    var node = document.createElement("P");                 // Create a <li> node
+    var textnode = document.createTextNode(nick);
+    node.appendChild(textnode);
+    document.getElementById("points").appendChild(node);
+}
 //NOT WORKING YET
 function sendMessage() {
     //console.log(document.getElementById("message").value)
     let msg = document.getElementById("message").value;
 
-    if(!msg.length <= 0) {
+    if (!msg.length <= 0) {
         var node = document.createElement("P");                 // Create a <li> node
         var textnode = document.createTextNode(msg);         // Create a text node
         node.appendChild(textnode);                              // Append the text to <li>
@@ -88,7 +103,7 @@ function whiteCanvas() {
 
 function updateCanvas(data) {
     strokeWeight(20);
-    let l = new Line(data.x,data.y, data.x1, data.y1, data.color);
+    let l = new Line(data.x, data.y, data.x1, data.y1, data.color);
     l.drawLine();
 }
 
@@ -105,4 +120,3 @@ function createRoom() {
     let namePass = document.getElementsByName("roomPassword")
     socket.emit("createRoom", nameRoom, namePass);
 }
-

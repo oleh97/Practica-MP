@@ -20,6 +20,7 @@ var rooms = [];
 var chat = [];
 var words = [];
 var allDataSent;
+var nicks = [];
 
 
 function randomWord() {
@@ -154,7 +155,17 @@ function newConnection(socket) {
             socket.emit("chatClient", chat[i]);
         }
     }
-
+    if(nicks.length != 0) {
+        for(let i = 0; i<nicks.length; i++) {
+            socket.emit("clientName", nicks[i]);
+        }
+    }
+    socket.on("newClientNick", printNicks);
+    function printNicks(data){
+        nicks.push(data);
+        socket.broadcast.emit("clientName", data);
+    }
+    
     /*
         Anytime the client drags the mouse sends data
         it emits each line to the server and then stores all the data.
@@ -169,7 +180,6 @@ function newConnection(socket) {
         socket.broadcast.emit("mouse", data);
     }
 
-    //NOT WORKING YET
     socket.on("chatMessage", handleMessage);
     function handleMessage(msg) {
         // console.log(msg);

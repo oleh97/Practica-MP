@@ -8,7 +8,7 @@
     <script src="client.js"></script>
     <link rel="stylesheet" type="text/css" href="index.css">
 </head>
-<body>
+<body onload="javascript:askNick()">
 <a href="https://imgbb.com/"><img id="letrero" src="https://i.ibb.co/74twsYJ/cooltext319595733843815.png"
                                   border="0"></a>
 <!-- <SCRIPT  language=JavaScript> 
@@ -28,22 +28,22 @@ if (document.form.password.value=='CONTRASEÑA' && document.form.login.value=='U
 <INPUT onclick=go() type=button value=Acceder>
 
 </FORM>   -->
-
-<div id="canvas"></div>
-<div id="points"><p align="center">PUNTOS</p></div>
+<div id="main">
+<div id="points" class="scrollableBox"><p align="center">PUNTOS</p></div>
+    <div id="canvas"></div>
 <div class="chat">
     <p align="center">CHAT</p>
-    <div style="height: 70%; border:solid black">
-        <div id="mensajes" style="word-wrap: break-word; overflow: auto; max-height: 95%;
-         padding: 5px"></div>
+    <div style="height: 70%; border:solid black 1px">
+        <div id="mensajes" class="scrollableBox"></div>
     </div>
     <button id="reset" class="button" onclick="reset()">Resetear</button>
     <label for="html5colorpicker">Color : </label>
     <input type="color" id="html5colorpicker" value="#000000" class="button">
-    <form>
+    <form style="text-align: center">
         <input id="message">
         <button type="button" id="send" class="button" onclick="sendMessage()">Send</button>
     </form>
+</div>
 </div>
 <!-- >>>>>>> de3116fac5b400572a163dac329bc0fd6db915fa -->
 </body>
