@@ -1,7 +1,7 @@
 //Import express and socket.io for the conectivity
 const express = require("express");
 const socket = require("socket.io");
-
+const https = require('https');
 
 //Start the server to listen to the port 80
 const app = express();
@@ -18,7 +18,80 @@ const Line = require("./public/client");
 var lines = [];
 var rooms = [];
 var chat = [];
+var words = [];
 var allDataSent;
+
+
+function randomWord() {
+    return words[Math.floor(Math.random() * (words.length - 0 + 1)) + 0];
+}
+
+https.get('https://randomwordgenerator.com/json/nouns.json', (resp) => {
+    let data = '';
+
+    // A chunk of data has been recieved.
+    resp.on('data', (chunk) => {
+        data += chunk;
+    });
+
+    // The whole response has been received. Print out the result.
+    resp.on('end', () => {
+        aux = [];
+        aux = JSON.parse(data);
+        for(w of aux.data) {
+            if(w.noun.length >= 4)
+                words.push(w.noun)
+        }
+    });
+
+}).on("error", (err) => {
+    console.log("Error: " + err.message);
+});
+
+
+https.get('https://randomwordgenerator.com/json/verbs.json', (resp) => {
+    let data = '';
+
+    // A chunk of data has been recieved.
+    resp.on('data', (chunk) => {
+        data += chunk;
+    });
+
+    // The whole response has been received. Print out the result.
+    resp.on('end', () => {
+        aux = [];
+        aux = JSON.parse(data);
+        for(w of aux.data) {
+            if(w.verb.length >= 4)
+                words.push(w.verb)
+        }
+    });
+
+}).on("error", (err) => {
+    console.log("Error: " + err.message);
+});
+
+https.get('https://randomwordgenerator.com/json/adjectives.json', (resp) => {
+    let data = '';
+
+    // A chunk of data has been recieved.
+    resp.on('data', (chunk) => {
+        data += chunk;
+    });
+
+    // The whole response has been received. Print out the result.
+    resp.on('end', () => {
+        aux = [];
+        aux = JSON.parse(data);
+        for(w of aux.data) {
+            if(w.adjective.length >= 4)
+                words.push(w.adjective)
+        }
+    });
+
+}).on("error", (err) => {
+    console.log("Error: " + err.message);
+});
 
 //This will tell the server to only show what's on the public folder
 app.use(express.static('public'));
