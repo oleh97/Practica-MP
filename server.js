@@ -22,6 +22,7 @@ var words = [];
 var players = [];
 var currentPlayer;
 var guessWord;
+var seconds = 90;
 
 function randomWord() {
     return words[Math.floor(Math.random() * (words.length - 0 + 1)) + 0];
@@ -94,6 +95,7 @@ https.get('https://randomwordgenerator.com/json/adjectives.json', (resp) => {
     console.log("Error: " + err.message);
 });
 
+
 //This will tell the server to only show what's on the public folder
 app.use(express.static('public'));
 
@@ -108,12 +110,24 @@ var io = socket(server);
 */
 io.on('connection', newConnection);
 
+
+setInterval(changeTime, 1000);
+function changeTime() {
+    if (seconds > 0){
+        seconds--;
+    }
+}
+
+
 /*Inside this function there will be all the functionality on the server side
 * and all the methods inside will handle each client
 *
 * There are 2 types of
 */
 function newConnection(socket) {
+
+    setInterval(returnTime, 1000);
+
     //Logs the time and the IP of the new device
     var d = new Date();
     var ip = socket.request.connection.remoteAddress;
@@ -156,10 +170,6 @@ function newConnection(socket) {
         }
     }
     if(players.length != 0) {
-        // console.log(players);
-        // for(let i = 0; i<players.length; i++) {
-        //     socket.broadcast.emit("clientName", players[i]);
-        // }
         for(let player of players) {
             socket.emit('clientName', player);
         }
@@ -168,6 +178,7 @@ function newConnection(socket) {
     function printNicks(data){
         socket.player = data;
         if(players.length == 0){
+            seconds = 90;
             socket.player.isPlaying = true;
             data.isPlaying = true;
             data.socket = socket.id;
@@ -182,7 +193,6 @@ function newConnection(socket) {
             socket.emit("getGuessingWord", guessWord.length);
         }
     }
-
 
     /*
         Anytime the client drags the mouse sends data
@@ -218,6 +228,10 @@ function newConnection(socket) {
         let r = new Room(name, pass);
         rooms.push(r);
         console.log(rooms)
+    }
+
+    function returnTime() {
+        socket.emit("currentTime", seconds);
     }
 
     //Logs in the console each time any client disconnects

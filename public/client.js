@@ -31,6 +31,7 @@ class Player {
 }
 
 var myPlayer = new Player();
+var sec = 0;
 
 //Gets the color that the client has selected
 function getCurrentColor() {
@@ -58,6 +59,13 @@ function setup() {
     socket.on("playerDisconnected", removePlayer);
     socket.on("isPlaying", setPlayerPlaying);
     socket.on("getGuessingWord", setGuessingWord);
+    socket.on("currentTime", setCurrentTime);
+}
+
+
+function setCurrentTime(seconds) {
+    sec = seconds;
+    document.getElementById("reloj").innerHTML = sec;
 }
 
 function setGuessingWord(guessWord) {
@@ -141,6 +149,7 @@ function addClient(p) {
 function sendMessage() {
     let msg = document.getElementById("message").value;
     if (!msg.length <= 0) {
+        socket.emit("checkCorrectWord", msg);
         var node = document.createElement("P");                 // Create a <li> node
         var textnode = document.createTextNode(msg);         // Create a text node
         node.appendChild(textnode);                              // Append the text to <li>
