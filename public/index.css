@@ -38,10 +38,10 @@ body { background-color: #77ACB9; }
 	background-color: #FFFFFF;
     position: fixed;
     top: 10%;
-    left: 81%;
+    left: 71%;
     border: solid 5px;
     height: 550px;
-    width: 225px;
+    width: 325px;
     border-radius: 21px 28px 28px 28px;
 }
 
@@ -76,5 +76,14 @@ body { background-color: #77ACB9; }
 }
 
 .otherPlayer{
+    color: red;
+}
+#relojBox {
+    padding-bottom: 5px;
+    margin-left: 100px;s
+}
+
+#reloj {
+    font-size: 2.6em;
     color: red;
 }
