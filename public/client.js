@@ -66,14 +66,14 @@ function setGuessingWord(guessWord) {
     var node = document.createElement("P");
     var textnode = document.createTextNode(string);
     node.appendChild(textnode);
-    document.getElementById('main').appendChild(node);
+    document.getElementById('wordToGuess').appendChild(node);
 }
 
 function setPlayerPlaying(word) {
     var node = document.createElement("P");
-    var textnode = document.createTextNode(word);
+    var textnode = document.createTextNode("Te toca dibujar : " + word);
     node.appendChild(textnode);
-    document.getElementById('main').appendChild(node);
+    document.getElementById('wordToGuess').appendChild(node);
     myPlayer.isPlaying = true;
     let button = document.getElementById('send');
     button.disabled = true;
