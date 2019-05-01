@@ -70,3 +70,11 @@ body { background-color: #77ACB9; }
     max-height: 95%;
     padding: 5px;
 }
+
+.myPlayer {
+    color: green;
+}
+
+.otherPlayer{
+    color: red;
+}

@@ -17,13 +17,31 @@ class Line {
     }
 }
 
+class Player {
+    constructor(name, score, isPlaying) {
+        this.name = name;
+        this.score = score;
+        this.isPlaying = isPlaying;
+        this.socket;
+    }
+
+    updateScore(score) {
+        this.score += score;
+    }
+}
+
+var myPlayer = new Player();
+
 //Gets the color that the client has selected
 function getCurrentColor() {
     return document.getElementById("html5colorpicker").value;
 }
 
 //So we can use the lines objects in the server side
-module.exports = Line;
+module.exports = {
+    Line:Line,
+    Player:Player
+}
 
 //Creates the canvas and sets the functions that will receive data from the server
 function setup() {
@@ -37,15 +55,27 @@ function setup() {
     socket.on("refresh", refreshData);
     socket.on("chatClient", addMessage);
     socket.on("clientName", addClient);
+    socket.on("playerDisconnected", removePlayer);
+}
+
+
+function removePlayer(player) {
+    var removedPlayer = document.getElementById('player'+player.name);
+    removedPlayer.remove();
 }
 
 function askNick() {
     var name = window.prompt("Escribe tu nick: ");
-    var node = document.createElement("P");                 // Create a <li> node
-    var textnode = document.createTextNode(name);
+    var node = document.createElement("P");
+    node.className = "myPlayer";
+    node.id = 'player'+name;
+    myPlayer.name = name;
+    myPlayer.score = 0;
+    myPlayer.isPlaying = false;
+    var textnode = document.createTextNode(myPlayer.name + ' ----- Puntos: '+ myPlayer.score);
     node.appendChild(textnode);
     document.getElementById("points").appendChild(node);
-    socket.emit("newClientNick", name);
+    socket.emit("newClientNick", myPlayer);
 }
 
 //Every time any client connects, the server will push all the data to him
@@ -71,15 +101,16 @@ function addMessage(msg) {
         document.getElementById("mensajes").appendChild(node);
     }
 }
-function addClient(nick) {
-    var node = document.createElement("P");                 // Create a <li> node
-    var textnode = document.createTextNode(nick);
+function addClient(p) {
+    var node = document.createElement("P");
+    node.className = "otherPlayer";
+    node.id = 'player'+p.name;
+    var textnode = document.createTextNode(p.name + ' ----- Puntos: '+ p.score);
     node.appendChild(textnode);
     document.getElementById("points").appendChild(node);
 }
-//NOT WORKING YET
+
 function sendMessage() {
-    //console.log(document.getElementById("message").value)
     let msg = document.getElementById("message").value;
 
     if (!msg.length <= 0) {
@@ -88,7 +119,7 @@ function sendMessage() {
         node.appendChild(textnode);                              // Append the text to <li>
         document.getElementById("mensajes").appendChild(node);
         document.getElementById("message").value = '';
-        socket.emit("chatMessage", msg);
+        socket.emit("chatMessage", myPlayer.name+': '+msg);
     }
 }
 

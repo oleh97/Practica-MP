@@ -14,14 +14,12 @@ const server = app.listen(80);
 * For now we'll keep it like this
 */
 const Room = require("./room")
-const Line = require("./public/client");
+const clientObjects = require("./public/client");
 var lines = [];
 var rooms = [];
 var chat = [];
 var words = [];
-var allDataSent;
-var nicks = [];
-
+var players = [];
 
 function randomWord() {
     return words[Math.floor(Math.random() * (words.length - 0 + 1)) + 0];
@@ -155,14 +153,22 @@ function newConnection(socket) {
             socket.emit("chatClient", chat[i]);
         }
     }
-    if(nicks.length != 0) {
-        for(let i = 0; i<nicks.length; i++) {
-            socket.emit("clientName", nicks[i]);
+    if(players.length != 0) {
+        // for(let i = 0; i<players.length; i++) {
+        //     socket.emit("clientName", players[i]);
+        // }
+        for(let player of players) {
+            socket.emit('clientName', player);
         }
     }
     socket.on("newClientNick", printNicks);
     function printNicks(data){
-        nicks.push(data);
+        // var arr = [];
+        // data.socket.push(socket);
+        // arr.push(socket);
+
+        socket.player = data;
+        players.push(data);
         socket.broadcast.emit("clientName", data);
     }
     
@@ -174,15 +180,13 @@ function newConnection(socket) {
      */
     socket.on("mouse", emitData);
     function emitData(data) {
-        let l = new Line(data.x,data.y, data.x1, data.y1, data.color);
-        //console.log(l);
+        let l = new clientObjects.Line(data.x,data.y, data.x1, data.y1, data.color);
         lines.push(l);
         socket.broadcast.emit("mouse", data);
     }
 
     socket.on("chatMessage", handleMessage);
     function handleMessage(msg) {
-        // console.log(msg);
         chat.push(msg);
         socket.broadcast.emit("chatClient", msg);
     }
@@ -215,5 +219,13 @@ function newConnection(socket) {
             + d.getHours() + ":"
             + d.getMinutes() + ":"
             + d.getSeconds());
+
+        let index = players.indexOf(socket.player);
+        if (index > -1) {
+            players.splice(index, 1);
+            console.log('Disconnecting player '+ socket.player.name);
+            socket.broadcast.emit("playerDisconnected", socket.player);
+        }
+
     }
 }
