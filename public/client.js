@@ -60,6 +60,8 @@ function setup() {
     socket.on("isPlaying", setPlayerPlaying);
     socket.on("getGuessingWord", setGuessingWord);
     socket.on("currentTime", setCurrentTime);
+    socket.on("correctWord", finishGame);
+    socket.on("updatePoints", updatePoints);
 }
 
 
@@ -144,6 +146,23 @@ function addClient(p) {
     var textnode = document.createTextNode(p.name + ' ----- Puntos: '+ p.score);
     node.appendChild(textnode);
     document.getElementById("points").appendChild(node);
+}
+
+function finishGame() {
+    socket.emit('endGame', myPlayer);
+}
+
+function updatePoints(data) {
+    console.log(data);
+    let node = document.getElementById('player'+data.winner.name);
+    let name = node.innerText.substring(0, node.innerText.lastIndexOf(':'));
+    name+=' '+data.winner.score;
+    node.innerText = name;
+
+    node = document.getElementById('player'+data.player.name);
+    name = node.innerText.substring(0, node.innerText.lastIndexOf(':'));
+    name+=' '+data.player.score;
+    node.innerText = name;
 }
 
 function sendMessage() {

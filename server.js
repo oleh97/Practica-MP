@@ -234,6 +234,34 @@ function newConnection(socket) {
         socket.emit("currentTime", seconds);
     }
 
+
+    socket.on("checkCorrectWord", checkClientWord);
+    function checkClientWord(word) {
+        if(word ==guessWord) {
+            socket.emit("correctWord");
+        }
+    }
+
+    socket.on("endGame", resetGame);
+    function resetGame(winner) {
+        let winnerIndex = -1;
+        for(let player of players) {
+            if(player.name == winner.name) {
+                winnerIndex = players.indexOf(player);
+            }
+        }
+        let playerIndex = players.indexOf(currentPlayer);
+
+        players[winnerIndex].score +=  seconds;
+        players[playerIndex].score += Math.floor(players[winnerIndex].score / 2);
+
+        let winnerPlayer = players[winnerIndex];
+        let drawingPlayer = players[playerIndex];
+
+        socket.emit("updatePoints", {winner: winnerPlayer, player: drawingPlayer});
+        socket.broadcast.emit("updatePoints", {winner: winnerPlayer, player: drawingPlayer});
+    }
+
     //Logs in the console each time any client disconnects
     socket.on('disconnect', disconected);
     function disconected() {
