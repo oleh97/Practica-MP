@@ -1,5 +1,5 @@
 var socket;
-
+var word = [];
 //Class line to create the objects we will store
 class Line {
     constructor(x, y, x1, y1, color) {
@@ -62,13 +62,19 @@ function setup() {
     socket.on("currentTime", setCurrentTime);
     socket.on("correctWord", finishGame);
     socket.on("updatePoints", updatePoints);
+    socket.on("hint", updateHiddenWord);
 }
 
+
+function updateHiddenWord(guessWord) {
+    document.getElementById('wordToGuess').innerText = guessWord;
+}
 
 function setCurrentTime(seconds) {
     sec = seconds;
     document.getElementById("reloj").innerHTML = sec;
 }
+
 
 function setGuessingWord(guessWord) {
     let string = new Array(guessWord + 1).join( '-' );
