@@ -23,7 +23,8 @@ var players = [];
 var currentPlayer;
 var guessWord;
 var seconds = 90;
-
+var position = 0;
+var guessWordToSent;
 function randomWord() {
     return words[Math.floor(Math.random() * (words.length - 0 + 1)) + 0];
 }
@@ -185,15 +186,17 @@ function newConnection(socket) {
             currentPlayer = data;
             players.push(data);
             guessWord = randomWord();
+            setInterval(showHint, Math.floor(90/guessWord.length-1)*1000);
+            guessWordToSent = new Array(guessWord.length + 1).join( '-' );
             socket.emit("isPlaying", guessWord);
         }
         else {
             players.push(data);
             socket.broadcast.emit("clientName", data);
             socket.emit("getGuessingWord", guessWord.length);
+            socket.emit("hint", guessWordToSent);
         }
     }
-
     /*
         Anytime the client drags the mouse sends data
         it emits each line to the server and then stores all the data.
@@ -230,6 +233,15 @@ function newConnection(socket) {
         console.log(rooms)
     }
 
+    function replaceAt(string, index, replacement) {
+        return string.substr(0, index) + replacement + string.substr(index + replacement.length);
+    }
+    function showHint(){
+        guessWordToSent = replaceAt(guessWordToSent,position,guessWord.charAt(position));
+        socket.broadcast.emit("hint", guessWordToSent);
+        position++;
+    }
+
     function returnTime() {
         socket.emit("currentTime", seconds);
     }
@@ -254,4 +266,5 @@ function newConnection(socket) {
         }
 
     }
+
 }

@@ -80,10 +80,13 @@ body { background-color: #77ACB9; }
 }
 #relojBox {
     padding-bottom: 5px;
-    margin-left: 100px;s
+    margin-left: 100px;
 }
 
 #reloj {
     font-size: 2.6em;
     color: red;
+}
+#wordToGuess {
+    display: inline-block;
 }
