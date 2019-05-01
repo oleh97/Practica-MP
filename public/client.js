@@ -56,8 +56,19 @@ function setup() {
     socket.on("chatClient", addMessage);
     socket.on("clientName", addClient);
     socket.on("playerDisconnected", removePlayer);
+    socket.on("isPlaying", setPlayerPlaying);
 }
 
+
+function setPlayerPlaying() {
+    myPlayer.isPlaying = true;
+    let button = document.getElementById('send');
+    button.disabled = true;
+    let colorButton = document.getElementById('html5colorpicker');
+    colorButton.disabled = false;
+    let resetButton = document.getElementById('reset');
+    resetButton.disabled = false;
+}
 
 function removePlayer(player) {
     var removedPlayer = document.getElementById('player'+player.name);
@@ -73,6 +84,10 @@ function askNick() {
     myPlayer.score = 0;
     myPlayer.isPlaying = false;
     var textnode = document.createTextNode(myPlayer.name + ' ----- Puntos: '+ myPlayer.score);
+    let button = document.getElementById('html5colorpicker');
+    let resetButton = document.getElementById('reset');
+    button.disabled = true;
+    resetButton.disabled = true;
     node.appendChild(textnode);
     document.getElementById("points").appendChild(node);
     socket.emit("newClientNick", myPlayer);
@@ -87,13 +102,12 @@ function refreshData(data) {
 
 //Emits a reset method to all the clients
 function reset() {
-    background(250);
+    background(240);
     socket.emit("reset");
 }
 
 
 function addMessage(msg) {
-
     if (!msg.length <= 0) {
         var node = document.createElement("P");                 // Create a <li> node
         var textnode = document.createTextNode(msg);         // Create a text node
@@ -112,7 +126,6 @@ function addClient(p) {
 
 function sendMessage() {
     let msg = document.getElementById("message").value;
-
     if (!msg.length <= 0) {
         var node = document.createElement("P");                 // Create a <li> node
         var textnode = document.createTextNode(msg);         // Create a text node
@@ -124,7 +137,7 @@ function sendMessage() {
 }
 
 function whiteCanvas() {
-    background(150);
+    background(240);
 }
 
 /*
@@ -140,10 +153,12 @@ function updateCanvas(data) {
 
 //Anytime the client drags the mouse, it will create new lines and emit them to the server
 function mouseDragged() {
-    let l = new Line(mouseX, mouseY, pmouseX, pmouseY, getCurrentColor());
-    strokeWeight(20);
-    l.drawLine();
-    socket.emit("mouse", l);
+    if(myPlayer.isPlaying) {
+        let l = new Line(mouseX, mouseY, pmouseX, pmouseY, getCurrentColor());
+        strokeWeight(20);
+        l.drawLine();
+        socket.emit("mouse", l);
+    }
 }
 
 function createRoom() {

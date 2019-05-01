@@ -163,13 +163,17 @@ function newConnection(socket) {
     }
     socket.on("newClientNick", printNicks);
     function printNicks(data){
-        // var arr = [];
-        // data.socket.push(socket);
-        // arr.push(socket);
-
         socket.player = data;
-        players.push(data);
-        socket.broadcast.emit("clientName", data);
+        if(players.length == 0){
+            socket.player.isPlaying = true;
+            data.isPlaying = true;
+            players.push(data);
+            socket.emit("isPlaying");
+        }
+        else {
+            players.push(data);
+            socket.broadcast.emit("clientName", data);
+        }
     }
     
     /*
