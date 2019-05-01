@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3fca3158-c2f1-4e3e-89c0-5f3b0c56ddc9" name="Default Changelist" comment="">
+    <list default="true" id="3fca3158-c2f1-4e3e-89c0-5f3b0c56ddc9" name="Default Changelist" comment="Merge branch 'master' of https://github.com/oleh97/Practica-MP&#10;&#10;# Conflicts:&#10;#&#9;public/client.js">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/client.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/client.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -20,13 +22,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="30" column="71" selection-start-line="30" selection-start-column="71" selection-end-line="30" selection-end-column="71" />
-              <folding>
-                <element signature="n#style#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#form#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="512">
+              <caret line="32" column="71" selection-start-line="32" selection-start-column="71" selection-end-line="32" selection-end-column="71" />
             </state>
           </provider>
         </entry>
@@ -34,8 +31,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/client.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="115">
-              <caret line="72" column="24" selection-start-line="72" selection-start-column="9" selection-end-line="72" selection-end-column="24" />
+            <state relative-caret-position="16">
+              <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -52,8 +49,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="131">
-              <caret line="154" column="32" selection-start-line="154" selection-start-column="27" selection-end-line="154" selection-end-column="32" />
+            <state relative-caret-position="2064">
+              <caret line="129" column="22" selection-start-line="129" selection-start-column="9" selection-end-line="129" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -71,8 +68,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>requir</find>
-      <find>refresh</find>
       <find>lines</find>
       <find>console.log</find>
       <find>let l = new Line</find>
@@ -101,6 +96,8 @@
       <find>guessword</find>
       <find>guess</find>
       <find>array</find>
+      <find>ispla</find>
+      <find>guessWordToSent</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -123,8 +120,8 @@
         <option value="$PROJECT_DIR$/public/line.js" />
         <option value="$PROJECT_DIR$/public/player.js" />
         <option value="$PROJECT_DIR$/public/index.html" />
-        <option value="$PROJECT_DIR$/public/client.js" />
         <option value="$PROJECT_DIR$/server.js" />
+        <option value="$PROJECT_DIR$/public/client.js" />
       </list>
     </option>
   </component>
@@ -236,7 +233,8 @@
       <workItem from="1555324269745" duration="150000" />
       <workItem from="1556638461627" duration="27398000" />
       <workItem from="1556710746658" duration="11262000" />
-      <workItem from="1556725202374" duration="14327000" />
+      <workItem from="1556725202374" duration="15723000" />
+      <workItem from="1556743257901" duration="247000" />
     </task>
     <task id="LOCAL-00001" summary="chat working">
       <created>1556640423009</created>
@@ -287,11 +285,18 @@
       <option name="project" value="LOCAL" />
       <updated>1556729603242</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="guess word added">
+      <created>1556741857424</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1556741857424</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="159944000" />
+    <option name="totallyTimeSpent" value="161587000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -303,8 +308,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.15862525" />
@@ -312,11 +316,11 @@
       <window_info id="npm" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Terminal" order="0" weight="0.32152975" />
       <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="2" weight="0.32719547" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="2" visible="true" weight="0.32719547" />
       <window_info anchor="bottom" id="Docker" order="3" show_stripe_button="false" />
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Find" order="5" weight="0.3277592" />
-      <window_info active="true" anchor="bottom" id="Run" order="6" visible="true" weight="0.3286119" />
+      <window_info anchor="bottom" id="Run" order="6" weight="0.3286119" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
@@ -378,7 +382,9 @@
     <MESSAGE value="sending word to client" />
     <MESSAGE value="hotfix" />
     <MESSAGE value="seconds added" />
-    <option name="LAST_COMMIT_MESSAGE" value="seconds added" />
+    <MESSAGE value="guess word added" />
+    <MESSAGE value="Merge branch 'master' of https://github.com/oleh97/Practica-MP&#10;&#10;# Conflicts:&#10;#&#9;public/client.js" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'master' of https://github.com/oleh97/Practica-MP&#10;&#10;# Conflicts:&#10;#&#9;public/client.js" />
   </component>
   <component name="editorHistoryManager">
     <entry file="https://github.com/oleh97/Practica-MP">
@@ -431,6 +437,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="512">
+          <caret line="32" column="71" selection-start-line="32" selection-start-column="71" selection-end-line="32" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/index.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1248">
@@ -438,29 +451,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="30" column="71" selection-start-line="30" selection-start-column="71" selection-end-line="30" selection-end-column="71" />
-          <folding>
-            <element signature="n#style#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#form#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="154" column="32" selection-start-line="154" selection-start-column="27" selection-end-line="154" selection-end-column="32" />
+        <state relative-caret-position="2064">
+          <caret line="129" column="22" selection-start-line="129" selection-start-column="9" selection-end-line="129" selection-end-column="22" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/client.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="72" column="24" selection-start-line="72" selection-start-column="9" selection-end-line="72" selection-end-column="24" />
+        <state relative-caret-position="16">
+          <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
         </state>
       </provider>
     </entry>
