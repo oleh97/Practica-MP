@@ -156,8 +156,9 @@ function newConnection(socket) {
         }
     }
     if(players.length != 0) {
+        // console.log(players);
         // for(let i = 0; i<players.length; i++) {
-        //     socket.emit("clientName", players[i]);
+        //     socket.broadcast.emit("clientName", players[i]);
         // }
         for(let player of players) {
             socket.emit('clientName', player);
@@ -177,10 +178,12 @@ function newConnection(socket) {
         }
         else {
             players.push(data);
+            socket.broadcast.emit("clientName", data);
             socket.emit("getGuessingWord", guessWord.length);
         }
     }
-    
+
+
     /*
         Anytime the client drags the mouse sends data
         it emits each line to the server and then stores all the data.

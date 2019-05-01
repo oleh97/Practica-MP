@@ -129,6 +129,7 @@ function addMessage(msg) {
     }
 }
 function addClient(p) {
+    console.log(p);
     var node = document.createElement("P");
     node.className = "otherPlayer";
     node.id = 'player'+p.name;
