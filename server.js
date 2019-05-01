@@ -20,6 +20,8 @@ var rooms = [];
 var chat = [];
 var words = [];
 var players = [];
+var currentPlayer;
+var guessWord;
 
 function randomWord() {
     return words[Math.floor(Math.random() * (words.length - 0 + 1)) + 0];
@@ -167,12 +169,15 @@ function newConnection(socket) {
         if(players.length == 0){
             socket.player.isPlaying = true;
             data.isPlaying = true;
+            data.socket = socket.id;
+            currentPlayer = data;
             players.push(data);
-            socket.emit("isPlaying");
+            guessWord = randomWord();
+            socket.emit("isPlaying", guessWord);
         }
         else {
             players.push(data);
-            socket.broadcast.emit("clientName", data);
+            socket.emit("getGuessingWord", guessWord.length);
         }
     }
     

@@ -57,10 +57,23 @@ function setup() {
     socket.on("clientName", addClient);
     socket.on("playerDisconnected", removePlayer);
     socket.on("isPlaying", setPlayerPlaying);
+    socket.on("getGuessingWord", setGuessingWord);
 }
 
+function setGuessingWord(guessWord) {
+    let string = new Array(guessWord + 1).join( '-' );
+    console.log(string);
+    var node = document.createElement("P");
+    var textnode = document.createTextNode(string);
+    node.appendChild(textnode);
+    document.getElementById('main').appendChild(node);
+}
 
-function setPlayerPlaying() {
+function setPlayerPlaying(word) {
+    var node = document.createElement("P");
+    var textnode = document.createTextNode(word);
+    node.appendChild(textnode);
+    document.getElementById('main').appendChild(node);
     myPlayer.isPlaying = true;
     let button = document.getElementById('send');
     button.disabled = true;
