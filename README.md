@@ -54,7 +54,7 @@ Abrir ``` localhost ``` en el navegador
 	-   [3.3 Requisitos NO Funcionales](#R.N.Funcionales)
 		-   [3.3.1 Logical Structure of the Data](#LSOD)
 	-   [3.4 Arquitectura del Sistema](#A.Sistema)
-		-   [3.4.1 Patron de Arquitectura](#P.Arquitectura)
+		-   [3.4.1 Patrón de Arquitectura](#P.Arquitectura)
 		-   [3.4.2 Lenguaje de Diseño](#L.Diseño)
 		-   [3.4.3 Lenguaje de Programación](#L.Programacion)
 		-   [3.4.4 Entorno de Ejecución](#E.Ejecucion)
@@ -63,7 +63,7 @@ Abrir ``` localhost ``` en el navegador
 
 ## 1- INTRODUCCIÓN<a name="Introduccion"></a>
 
-La aplicación consistirá en hacer un pinturillo que tendrá tres secciones:
+La aplicación consistirá en hacer un pinturillo :
 
 <a href="https://ibb.co/1Q9BFGS"><img src="https://i.ibb.co/dMQX84h/Captura-de-pantalla-2019-05-02-a-las-13-00-58.png" alt="Captura-de-pantalla-2019-05-02-a-las-13-00-58" border="0"></a>
 
@@ -88,7 +88,7 @@ El presente documento tiene como propósito definir las especificaciones funcion
 
 ## 2- DESCRIPCIÓN GENERAL<a name="D.General"></a>
 
-### 2.2. Entorno del Sistema<a name="E.Sistema"></a>
+### 2.1. Entorno del Sistema<a name="E.Sistema"></a>
 El Pinturillo es un juego multijugador en el que los jugadores acceden a la página web del juego a través de internet mediante el propio navegador del usuario.
 
 ### 2.2. Especificación de Requisitos Funcionales<a name="E.R.S"></a>
@@ -104,30 +104,30 @@ Paso por paso:
 3. El jugador envía la palabra.
 4. El sistema muestra si ha acertado o fallado.
 
-- Descripción: Solo puede pintar un jugador en el cambas por turno el resto deberá adivinar la palabra.
+- Descripción: Solo puede pintar un jugador en el canvas por turno el resto deberá adivinar la palabra.
 
 <a href="https://ibb.co/R2WH9sQ"><img src="https://i.ibb.co/qBw1dcm/Captura-de-pantalla-2019-05-02-a-las-13-01-17.png" alt="Captura-de-pantalla-2019-05-02-a-las-13-01-17" border="0"></a>
 
 Paso por paso:
 1. El jugador selecciona un color.
 2. El jugador dibuja en el lienzo utilizando el ratón.
-3. El jugador solo tiene un minuto para dibujar.
+3. El jugador solo tiene 90 segundos para dibujar.
 4. El resto de jugadores intenta adivinar la palabra.
-5. Al pasar el minuto el turno pasa al siguiente jugador.
+5. Al pasar el tiempo el turno pasa al siguiente jugador.
 
 #### 2.2.2. Casos de uso y componentes lógica del juego<a name="C.Logica"></a>
-- Descripción: 1 minuto por turno.
+- Descripción: 90 segundos por turno.
 
 <a href="https://ibb.co/kcXs8XF"><img src="https://i.ibb.co/SvB4nBp/Captura-de-pantalla-2019-05-02-a-las-13-01-26.png" alt="Captura-de-pantalla-2019-05-02-a-las-13-01-26" border="0"></a>
 
 Paso por paso:
 1. El turno del jugador comienza.
-2. El tiempo pasa hasta llegar al minuto.
-3. Cuando el tiempo llega al minuto el turno pasa al siguiente jugador.
+2. El tiempo pasa hasta llegar a los 90 segundos.
+3. Cuando el tiempo llega a su fin, el turno pasa al siguiente jugador.
 
 <a href="https://ibb.co/myjyTt1"><img src="https://i.ibb.co/8xCxs2T/Captura-de-pantalla-2019-05-02-a-las-13-01-31.png" alt="Captura-de-pantalla-2019-05-02-a-las-13-01-31" border="0"></a>
 
-- Descripción: En cada turno, el servidor elige una palabra aleatoria de entre todas las posibles (generadas por una API) y se la muestra al jugador que va a dibujar, pasados 5s se le permite dibujar. Tipos de palabras:
+- Descripción: En cada turno, el servidor elige una palabra aleatoria de entre todas las posibles (generadas por una API) y se la muestra al jugador que va a dibujar, pasados cinco segundos se le permite dibujar. Tipos de palabras:
 . Adjetivos
 . Acciones
 . Sustantivos
@@ -201,7 +201,7 @@ El Pinturillo estará en un servidor que será el encargado de establecer la con
 ### 3.1. Requisitos de la interfaz externa<a name="R.I.E"></a>
 
 #### 3.1.1. API<a name="API"></a>
-La aplicación hace uso de una API, es un conjunto de funciones y procedimientos que cumplen una o muchas funciones con el fin de ser utilizadas por otro software. Las siglas API vienen del inglés Application Programming Interface.
+La aplicación hace uso de una API, que es un conjunto de funciones y procedimientos que cumplen una o muchas funciones con el fin de ser utilizadas por otro software. Las siglas API vienen del inglés Application Programming Interface.
 Una API nos permite implementar las funciones y procedimientos que engloban en nuestro proyecto sin la necesidad de programarlas de nuevo. En términos de programación, es una capa de abstracción.
 
 #### 3.1.2 NODE<a name="NODE"></a>
@@ -262,12 +262,12 @@ La aplicación hace uso de Node.js  que es un entorno en tiempo de ejecución mu
 | Postcondición			| Los demás jugadores pueden empezar a adivinar la palabra    |
 
 
-| Nombre						| Sumar segudos al contador						   											|
+| Nombre						| Sumar segundos al contador						   											|
 |-------------------|------------------------------------------------------------ |
 | Trigger						| El tiempo comienza																					|
 | Precondición			| Empieza el turno del jugador																|
 | Ruta básica				| El sistema dibuja en negro por defecto											|
-| Ruta alternativa	| El tiempo empieza en 0, se suma 1 al tiempo cada segundo y se para al llegar a los 60 segundos|
+| Ruta alternativa	| El tiempo empieza en 0, se suma 1 al tiempo cada segundo y se para al llegar a los 90 segundos|
 | Postcondición			| El turno termina																						|
 
 | Nombre						| Cambiar de turno																						|
@@ -282,7 +282,7 @@ La aplicación hace uso de Node.js  que es un entorno en tiempo de ejecución mu
 |-------------------|------------------------------------------------------------ |
 | Trigger						| El turno comienza																						|
 | Precondición			| El jugador que dibuja ha sido seleccionado									|
-| Ruta básica				| El jugaor que dibuja es elegido, el sistema elige una palabra aleatoria y el sistema muestra la palabra a ese jugador																				|
+| Ruta básica				| El jugador que dibuja es elegido, el sistema elige una palabra aleatoria y el sistema muestra la palabra a ese jugador																				|
 | Postcondición			| El jugador que dibuja puede ver la palabra									|
 
 
@@ -291,7 +291,7 @@ La aplicación hace uso de Node.js  que es un entorno en tiempo de ejecución mu
 | Trigger						| El jugador entra en el sitio web														|
 | Precondición			| El jugador tiene acceso al sitio web												|
 | Ruta básica				| El jugador entra en la pagina web y el sistema muestra un cuadro de texto donde el jugador deberá introducir su nickname. El sistema guarda el nickname y muestra la pantalla principal con su nombre en el apartado de PUNTOS												 |
-| Postcondición			| EL pincel pinta del color elegido														|
+| Postcondición			| El pincel pinta del color elegido														|
 
 
 ### 3.3- Requisitos No Funcionales<a name="R.N.Funcionales"></a>
