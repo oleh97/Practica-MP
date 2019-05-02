@@ -7,12 +7,12 @@ Juego tipo "Pinturillo" en el que un jugador dibuja y todos los demás intentan 
 |-----------------------------|------------------------------------|------------|
 | Héctor Mediero de la Morena | <h.mediero.2016@alumnos.urjc.es>   | HectorM15  |
 | Adrián Gómez de Juan	      | <a.gomezdej@alumnos.urjc.esr>      | adriang5   |
-| David Robles García  	      | <d.robles.2016@alumnos.urjc.es>    |            |
-| Oleh Hrinchenko             |                                    | oleh97     |
-| Álvaro Noguerales Ramos     | <a.noguerales.2016@alumnos.urjc.es>|            |
-| Eduardo Luna Sñanchez       | <e.luna.2016@alumnos.urjc.es>      |            |
+| David Robles García  	      | <d.robles.2016@alumnos.urjc.es>    | davidrobl  |
+| Oleh Hrinchenko             | <o.hrinchenko@alumnos.urjc.es>     | oleh97     |
+| Álvaro Noguerales Ramos     | <a.noguerales.2016@alumnos.urjc.es>| Anogue     |
+| Eduardo Luna Sñanchez       | <e.luna.2016@alumnos.urjc.es>      | EduLuna    |
 | Igor Teterycz		      | <I.teterycz.2016@alumnos.urjc.es>  | IgorT142   |
-| María Gutiérrez Tapias      | <m.gutierrezt.2016@alumnos.urjc.es>|            |
+| María Gutiérrez Tapias      | <m.gutierrezt.2016@alumnos.urjc.es>| Mariagt97  |
 
 
 ## Como lanzarlo
@@ -216,7 +216,7 @@ La aplicación hace uso de Node.js  que es un entorno en tiempo de ejecución mu
 | Precondición			| Es el turno de ese jugador																	|
 | Ruta básica				| El sistema dibuja en negro por defecto											|
 | Ruta alternativa	| El jugador hace click en la paleta de colores, el sistema despliega la paleta y el jugador selecciona un color|
-| Postcondición			| EL pincel pinta del color elegido														|
+| Postcondición			| El pincel pinta del color elegido														|
 
 
 | Nombre						| Dibujar en la pizarra 																			|
