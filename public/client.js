@@ -235,6 +235,7 @@ function updatePlayer(data) {
     if (data.correct) {
         var node = document.getElementById("wordToGuess");
         node.innerText = "";
+        myPlayer.hasWon = false;
         let button = document.getElementById('send');
         button.disabled = true;
         let colorButton = document.getElementById('html5colorpicker');
