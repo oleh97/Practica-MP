@@ -37,7 +37,7 @@ Abrir ``` localhost ``` en el navegador
     
 -   [2. Descripción General](#D.General)
    	-   [2.1 Entorno del Sistema](#E.Sistema)
-    	-   [2.2 Especificación de Requisitos Funcionales](#E.R.S)
+	-   [2.2 Especificación de Requisitos Funcionales](#E.R.S)
     		-   [2.2.1 Casos de uso dibujantes](#C.Dibujantes)
 		-   [2.2.2 Casos de uso y componentes lógica del juego](#C.Logica)
 		-   [2.2.3 Casos de uso y componentes ranking](#C.Ranking)
@@ -51,7 +51,7 @@ Abrir ``` localhost ``` en el navegador
 		-   [3.1.1 API](#API)
 		-   [3.1.2 NODE](#NODE)
 	-   [3.2 Requisitos Funcionales](#R.F)
-    	-   [3.3 Requisitos NO Funcionales](#R.N.Funcionales)
+	-   [3.3 Requisitos NO Funcionales](#R.N.Funcionales)
 		-   [3.3.1 Logical Structure of the Data](#LSOD)
     	-   [3.4 Arquitectura del Sistema](#A.Sistema)
       		-   [3.4.1 Patron de Arquitectura](#P.Arquitectura)
@@ -76,14 +76,14 @@ El presente documento tiene como propósito definir las especificaciones funcion
 
 1.2 Glosario<a name="Glosario"></a>
 
-| Términos				| Descripción   																							|
-|-----------------|------------------------------------------------------------ |
-| Canvas					| Pizarra que se utilizará para dibujar o pintar. |
-| Nickname				| Es un nombre de fantasía o un nombre para abreviar un nombre mayor.|
-| Turno						| Orden según el cual se alternan varias personas en la realización de una actividad o un servicio.|
-| Ranking					| Lista o relación ordenada de cosas o personas con arreglo a un criterio determinado.|
-| Chat						| Comunicación en tiempo real que se realiza entre varios usuarios cuyas computadoras están conectadas a una red, generalmente Internet; los usuarios escriben mensajes en su teclado, y el texto aparece automáticamente y al instante en el monitor de todos los participantes.|
-| Adivinar				| Descubrir algo de forma intuitiva, sin utilizar procedimientos basados en la razón ni en los conocimientos científicos|
+| Términos	| Descripción  							     |
+|---------------|------------------------------------------------------------------- |
+| Canvas	| Pizarra que se utilizará para dibujar o pintar. 		     |
+| Nickname	| Es un nombre de fantasía o un nombre para abreviar un nombre mayor.|
+| Turno		| Orden según el cual se alternan varias personas en la realización de una actividad o un servicio.								    |
+| Ranking	| Lista o relación ordenada de cosas o personas con arreglo a un criterio determinado.|
+| Chat		| Comunicación en tiempo real que se realiza entre varios usuarios cuyas computadoras están conectadas a una red, generalmente Internet; los usuarios escriben mensajes en su teclado, y el texto aparece automáticamente y al instante en el monitor de todos los participantes.|
+| Adivinar	| Descubrir algo de forma intuitiva, sin utilizar procedimientos basados en la razón ni en los conocimientos científicos|
 
 
 2 Descripción General<a name="D.General"></a>
