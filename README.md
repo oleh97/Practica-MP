@@ -5,14 +5,14 @@ Juego tipo "Pinturillo" en el que un jugador dibuja y todos los demás intentan 
 ## Integrantes del grupo
 | Nombre y Apellidos          | Mail                               | Github     |
 |-----------------------------|------------------------------------|------------|
-| Héctor Mediero de la Morena	| <h.mediero.2016@alumnos.urjc.es>   | HectorM15  |
+| Héctor Mediero de la Morena | <h.mediero.2016@alumnos.urjc.es>   | HectorM15  |
 | Adrián Gómez de Juan	      | <a.gomezdej@alumnos.urjc.esr>      | adriang5   |
-| David Robles García  			  | <d.robles.2016@alumnos.urjc.es>    |            |
-| Oleh Hrinchenko 					  |                                    | oleh97     |
+| David Robles García  	      | <d.robles.2016@alumnos.urjc.es>    |            |
+| Oleh Hrinchenko             |                                    | oleh97     |
 | Álvaro Noguerales Ramos     | <a.noguerales.2016@alumnos.urjc.es>|            |
 | Eduardo Luna Sñanchez       | <e.luna.2016@alumnos.urjc.es>      |            |
-| Igor Teterycz				        | <I.teterycz.2016@alumnos.urjc.es>  | IgorT142   |
-| María Gutiérrez Tapias	    | <m.gutierrezt.2016@alumnos.urjc.es>| |
+| Igor Teterycz		      | <I.teterycz.2016@alumnos.urjc.es>  | IgorT142   |
+| María Gutiérrez Tapias      | <m.gutierrezt.2016@alumnos.urjc.es>|            |
 
 
 ## Como lanzarlo
@@ -29,45 +29,35 @@ node server.js
 Abrir ``` localhost ``` en el navegador
 
 
-
-
-
-
-
-
-
-
-
-
 ## Especificación de requerimientos de software (SRS)
 ===================
 -   [1. Introducción](#Introduccion)
-    -   [1.1 Propósito](#Proposito)
-    -   [1.2 Glosario](#Glosario)
+	-   [1.1 Propósito](#Proposito)
+    	-   [1.2 Glosario](#Glosario)
     
 -   [2. Descripción General](#D.General)
-    -   [2.1 Entorno del Sistema](#E.Sistema)
-    -   [2.2 Especificación de Requisitos Funcionales](#E.R.S)
-		   -   [2.2.1 Casos de uso dibujantes](#C.Dibujantes)
-			 -   [2.2.2 Casos de uso y componentes lógica del juego](#C.Logica)
-			 -   [2.2.3 Casos de uso y componentes ranking](#C.Ranking)
-			 -   [2.2.4 Componentes para pintar](#C.Pintar)
-			 -   [2.2.5 Casos de uso acceder](#C.Acceder)			
-    -   [2.3 Caracteristicas del usuario](#C.Usuario)
-    -   [2.4 Requisitos no Funcionales](#R.N.F)
+   	-   [2.1 Entorno del Sistema](#E.Sistema)
+    	-   [2.2 Especificación de Requisitos Funcionales](#E.R.S)
+    		-   [2.2.1 Casos de uso dibujantes](#C.Dibujantes)
+		-   [2.2.2 Casos de uso y componentes lógica del juego](#C.Logica)
+		-   [2.2.3 Casos de uso y componentes ranking](#C.Ranking)
+  		-   [2.2.4 Componentes para pintar](#C.Pintar)
+		-   [2.2.5 Casos de uso acceder](#C.Acceder)			
+    	-   [2.3 Caracteristicas del usuario](#C.Usuario)
+    	-   [2.4 Requisitos no Funcionales](#R.N.F)
     
 -   [3. Especificación de Requisitos](#E.Requisitos)
-    -   [3.1 Requisitos de la interfaz externa](#R.I.E)
-			 -   [3.1.1 API](#API)
-			 -   [3.1.2 NODE](#NODE)
-		-   [3.2 Requisitos Funcionales](#R.F)
-    -   [3.3 Requisitos NO Funcionales](#R.N.Funcionales)
-		   -   [3.3.1 Logical Structure of the Data](#LSOD)
-    -   [3.4 Arquitectura del Sistema](#A.Sistema)
-       -   [3.4.1 Patron de Arquitectura](#P.Arquitectura)
-			 -   [3.4.2 Lenguaje de Diseño](#L.Diseño)
-			 -   [3.4.3 Lenguaje de Programación](#L.Programacion)
-			 -   [3.4.4 Entorno de Ejecución](#E.Ejecucion)
+	-   [3.1 Requisitos de la interfaz externa](#R.I.E)
+		-   [3.1.1 API](#API)
+		-   [3.1.2 NODE](#NODE)
+	-   [3.2 Requisitos Funcionales](#R.F)
+    	-   [3.3 Requisitos NO Funcionales](#R.N.Funcionales)
+		-   [3.3.1 Logical Structure of the Data](#LSOD)
+    	-   [3.4 Arquitectura del Sistema](#A.Sistema)
+      		-   [3.4.1 Patron de Arquitectura](#P.Arquitectura)
+			-   [3.4.2 Lenguaje de Diseño](#L.Diseño)
+			-   [3.4.3 Lenguaje de Programación](#L.Programacion)
+			-   [3.4.4 Entorno de Ejecución](#E.Ejecucion)
     
 
 
