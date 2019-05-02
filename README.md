@@ -34,16 +34,16 @@ Abrir ``` localhost ``` en el navegador
 -   [1. Introducción](#Introduccion)
 	-   [1.1 Propósito](#Proposito)
 	-   [1.2 Glosario](#Glosario)
-    
+	
 -   [2. Descripción General](#D.General)
-   	-   [2.1 Entorno del Sistema](#E.Sistema)
+	-   [2.1 Entorno del Sistema](#E.Sistema)
 	-   [2.2 Especificación de Requisitos Funcionales](#E.R.S)
 		-   [2.2.1 Casos de uso dibujantes](#C.Dibujantes)
 		-   [2.2.2 Casos de uso y componentes lógica del juego](#C.Logica)
 		-   [2.2.3 Casos de uso y componentes ranking](#C.Ranking)
   		-   [2.2.4 Componentes para pintar](#C.Pintar)
 		-   [2.2.5 Casos de uso acceder](#C.Acceder)			
-    -   [2.3 Caracteristicas del usuario](#C.Usuario)
+	-   [2.3 Caracteristicas del usuario](#C.Usuario)
 	-   [2.4 Requisitos no Funcionales](#R.N.F)
     
 -   [3. Especificación de Requisitos](#E.Requisitos)
@@ -210,9 +210,8 @@ La aplicación hace uso de Node.js  que es un entorno en tiempo de ejecución mu
 
 ### 3.2. Requisitos Funcionales<a name="R.F"></a>
 
-|                   |  Requisito     													   									|
-|-------------------|------------------------------------------------------------ |
 | Nombre						| Elegir color 																								|
+|-------------------|------------------------------------------------------------ |
 | Trigger						| El jugador accede a la paleta de colores										|
 | Precondición			| Es el turno de ese jugador																	|
 | Ruta básica				| El sistema dibuja en negro por defecto											|
@@ -220,9 +219,8 @@ La aplicación hace uso de Node.js  que es un entorno en tiempo de ejecución mu
 | Postcondición			| EL pincel pinta del color elegido														|
 
 
-|                   |  Requisito     													   									|
-|-------------------|------------------------------------------------------------ |
 | Nombre						| Dibujar en la pizarra 																			|
+|-------------------|------------------------------------------------------------ |
 | Trigger						| El sistema deja dibujar al jugador													|
 | Precondición			| Es el turno de ese jugador																	|
 | Ruta básica				| El sistema presenta un lienzo, el jugador utiliza el raton para dibujar sobre el y el sistema muestra lo que se dibuja en el lienzo a todos los jugadores	|
@@ -230,9 +228,8 @@ La aplicación hace uso de Node.js  que es un entorno en tiempo de ejecución mu
 | Postcondición			| El turno acaba con un dibujo del jugador en el lienzo				|
 
 
-|                   |  Requisito     													   									|
-|-------------------|------------------------------------------------------------ |
 | Nombre						| Borrar la pizarra|
+|-------------------|------------------------------------------------------------ |
 | Trigger						| El jugador selecciona el boton RESETEAR											|
 | Precondición			| El jugador ha pintado en el lienzo													|
 | Ruta básica				| El jugador ha dibujado en el lienzo, pulsa sobre el boton de reseteo y el sistema muestra el lienzo en blanco																								|
@@ -240,72 +237,57 @@ La aplicación hace uso de Node.js  que es un entorno en tiempo de ejecución mu
 | Postcondición			| El sistema muestra el lienzo en blanco 											|
 
 
-|                   |  Requisito     													   									|
-|-------------------|------------------------------------------------------------ |
-| Nombre						| Elegir color 																								|
-| Trigger						| El jugador accede a la paleta de colores										|
-| Precondición			| Es el turno de ese jugador																	|
-| Ruta básica				| El sistema dibuja en negro por defecto											|
-| Ruta alternativa	| El jugador hace click en la paleta de colores, el sistema despliega la paleta y el jugador selecciona un color|
-| Postcondición			| EL pincel pinta del color elegido														|
 
-
-|                   |  Requisito     													   									|
-|-------------------|------------------------------------------------------------ |
 | Nombre						| Ver la palabra a adivinar																		|
+|-------------------|------------------------------------------------------------ |
 | Trigger						| El jugador tiene que dibujar una palabra										|
 | Precondición			| El jugado debe dibujar																			|
 | Ruta básica				| El sistema elige una palabra y la muestra al jugador				|
 | Postcondición			| Los demás jugadores pueden empezar a adivinar la palabra    |
 
 
-|                   |  Requisito     													   									|
-|-------------------|------------------------------------------------------------ |
 | Nombre						| Escribir en el chat																					|
+|-------------------|------------------------------------------------------------ |
 | Trigger						| El usuario selecciona el cuadro de texto del chat						|
 | Precondición			| El jugador debe adivinar la palabra  												|
 | Ruta básica				| El jugador elecciona el cuadro de texto del chat, escribe una palabra y al darle al boton de enviar, el sistema verifica si es la palbara correcta. Siacierta, recibe una puntuación como recompensa|
 | Postcondición			| El jugador envia una palabra      													|
 
 
-|                   |  Requisito     													   									|
-|-------------------|------------------------------------------------------------ |
 | Nombre						| Ver numero de letras																				|
+|-------------------|------------------------------------------------------------ |
 | Trigger						| El jugador tiene que adivinar una palabra										|
 | Precondición			| El jugador no tiene que dibujar															|
 | Ruta básica				| El sistema elige una palabra, el sistema muestra esa palabra en formato de barras bajas y el jugador puede ver cuantas letras tiene esa palabra.						 |
 | Postcondición			| Los demás jugadores pueden empezar a adivinar la palabra    |
 
-|                   |  Requisito     													   									|
-|-------------------|------------------------------------------------------------ |
+
 | Nombre						| Sumar segudos al contador						   											|
+|-------------------|------------------------------------------------------------ |
 | Trigger						| El tiempo comienza																					|
 | Precondición			| Empieza el turno del jugador																|
 | Ruta básica				| El sistema dibuja en negro por defecto											|
 | Ruta alternativa	| El tiempo empieza en 0, se suma 1 al tiempo cada segundo y se para al llegar a los 60 segundos|
 | Postcondición			| El turno termina																						|
 
-|                   |  Requisito     													   									|
-|-------------------|------------------------------------------------------------ |
 | Nombre						| Cambiar de turno																						|
+|-------------------|------------------------------------------------------------ |
 | Trigger						| El jugador juega la siguiente partida												|
 | Precondición			| El turno anterior ha terminado															|
 | Ruta básica				| El jugador esta dentro de la partida, el sistema finaliza el turno anterior y asigna turno al siguiente. El resto de jugadores adivina.							 |
 | Postcondición			| El jugador que dibuja es otro distinto al del turno anterior|							
 
 
-|                   |  Requisito     													   									|
-|-------------------|------------------------------------------------------------ |
 | Nombre						| Elegir palabra 																							|
+|-------------------|------------------------------------------------------------ |
 | Trigger						| El turno comienza																						|
 | Precondición			| El jugador que dibuja ha sido seleccionado									|
 | Ruta básica				| El jugaor que dibuja es elegido, el sistema elige una palabra aleatoria y el sistema muestra la palabra a ese jugador																				|
 | Postcondición			| El jugador que dibuja puede ver la palabra									|
 
 
-|                   |  Requisito     													   									|
-|-------------------|------------------------------------------------------------ |
 | Nombre						| Realizar Login																							|
+|-------------------|------------------------------------------------------------ |
 | Trigger						| El jugador entra en el sitio web														|
 | Precondición			| El jugador tiene acceso al sitio web												|
 | Ruta básica				| El jugador entra en la pagina web y el sistema muestra un cuadro de texto donde el jugador deberá introducir su nickname. El sistema guarda el nickname y muestra la pantalla principal con su nombre en el apartado de PUNTOS												 |
