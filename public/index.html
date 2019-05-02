@@ -28,9 +28,9 @@
     <button id="reset" class="button" onclick="reset()">Resetear</button>
     <label for="html5colorpicker">Color : </label>
     <input type="color" id="html5colorpicker" value="#000000" class="button">
-    <form style="text-align: center">
-        <input id="message">
-        <button type="button" id="send" class="button" onclick="sendMessage()">Send</button>
+    <form style="text-align: center" onsubmit="return false;">
+        <input id="message" >
+        <button type="submit" id="send" class="button" onclick="sendMessage()">Send</button>
     </form>
 </div>
 </div>

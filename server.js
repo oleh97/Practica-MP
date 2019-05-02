@@ -24,7 +24,7 @@ var currentPlayer;
 var someoneWon = false;
 var lastPlayer;
 var guessWord;
-var seconds = 10;
+var seconds = 90, totalSeconds = 90;
 var position = 0;
 var guessWordToSent;
 var intervalId;
@@ -114,67 +114,66 @@ var io = socket(server);
 * and broadcasting it to all the other connected devices
 */
 io.on('connection', newConnection);
-
-
+var gameStarted = false;
 var timeIntervalID = setInterval(changeTime, 1000);
+var time;
 
-function handleGame(){
+function handleGame() {
     if (players.length > 1) {
+        let currentPlayerPosition, winnerPosition;
         someoneWon = false;
-        for (player of players) {
-            if (player.hasWon) {
+        for (let i = 0; i < players.length; i++) {
+            if (players[i].hasWon) {
                 someoneWon = true;
-                break;
+                winnerPosition = i;
+
+            } else if (players[i].isPlaying) {
+                currentPlayerPosition = i;
             }
         }
         if (someoneWon) {
-            players[players.indexOf(currentPlayer)].isPlaying = false;
-            io.to(players[players.indexOf(currentPlayer)].socket).emit("updatePlayer", {
+            players[currentPlayerPosition].isPlaying = false;
+            io.to(players[currentPlayerPosition].socket).emit("updatePlayer", {
                 correct: false,
-                player: players[players.indexOf(currentPlayer)]
+                player: players[currentPlayerPosition]
             });
-            for (let player of players) {
-                if (player.hasWon) {
-                    currentPlayer = player;
-                    player.isPlaying = true;
-                    player.hasWon = false;
-                    guessWord = randomWord();
-                    guessWordToSent = new Array(guessWord.length + 1).join('-');
-                    position = 0;
-                    io.to(player.socket).emit("updatePlayer", {correct: true, player: player})
-                    io.to(player.socket).emit("isPlaying", guessWord);
-                    break;
-                }
-            }
-            for (let player of players) {
-                if (!player.isPlaying) {
-                    player.hasWon=false;
-                    io.to(player.socket).emit("updatePlayer", {correct: false, player: player})
-                    io.to(player.socket).emit("getGuessingWord", guessWord.length);
-                    break;
-                }
-            }
-        } else {
+
+            currentPlayer = players[winnerPosition];
+            players[winnerPosition].isPlaying = true;
+            players[winnerPosition].hasWon = false;
+
             guessWord = randomWord();
             guessWordToSent = new Array(guessWord.length + 1).join('-');
             position = 0;
 
+            io.to(players[winnerPosition].socket).emit("updatePlayer", {correct: true, player: players[winnerPosition]})
+            io.to(players[winnerPosition].socket).emit("isPlaying", guessWord);
+
+            updatePlayersNotPainting();
+        } else {
+
+            //Generate new word
+            guessWord = randomWord();
+            guessWordToSent = new Array(guessWord.length + 1).join('-');
+            position = 0;
+
+            //Our player now doesnt paint
             currentPlayer.isPlaying = false;
 
             //UPDATE THE CURRENT PLAYER WHO IS PAINTING
-            players[players.indexOf(currentPlayer)].isPlaying = false;
-            io.to(players[players.indexOf(currentPlayer)].socket).emit("updatePlayer", {
+            players[currentPlayerPosition].isPlaying = false;
+            io.to(players[currentPlayerPosition].socket).emit("updatePlayer", {
                 correct: false,
-                player: players[players.indexOf(currentPlayer)]
+                player: players[currentPlayerPosition]
             });
 
 
             //UPDATE THE NEW PLAYER WHO WILL PAINT
             let randomPlayer;
-            lastPlayer=currentPlayer;
+            lastPlayer = currentPlayer;
 
             do {
-                randomPlayer= Math.floor(Math.random() * (players.length - 0 + 0)) + 0
+                randomPlayer = Math.floor(Math.random() * (players.length - 0 + 0)) + 0
             } while (randomPlayer == players.indexOf(lastPlayer))
 
             currentPlayer = players[randomPlayer];
@@ -182,26 +181,39 @@ function handleGame(){
 
             io.to(players[randomPlayer].socket).emit("updatePlayer", {correct: true, player: players[randomPlayer]})
             io.to(players[randomPlayer].socket).emit("isPlaying", guessWord);
+            updatePlayersNotPainting();
 
-            for (let player of players) {
-                if (!player.isPlaying) {
-                    player.hasWon=false;
-                    io.to(player.socket).emit("updatePlayer", {correct: false, player: player})
-                    io.to(player.socket).emit("getGuessingWord", guessWord.length);
-                    break;
-                }
-            }
         }
+    } else {
+        gameStarted = false;
+        if (guessWord != undefined) {
+            guessWordToSent = new Array(guessWord.length + 1).join('-');
+            position = 0;
 
+        }
+    }
+}
+
+function updatePlayersNotPainting() {
+    for (let player of players) {
+        if (!player.isPlaying) {
+            player.hasWon = false;
+            io.to(player.socket).emit("updatePlayer", {correct: false, player: player})
+            io.to(player.socket).emit("getGuessingWord", guessWord.length);
+        }
     }
 }
 
 function changeTime() {
-    if (seconds > 0) {
+    if (seconds > 0 && players.length > 1) {
         seconds--;
     } else {
         handleGame();
-        seconds = 10;
+        seconds = totalSeconds;
+        if (guessWord != undefined) {
+
+            time = Math.floor(totalSeconds / guessWord.length-1) * 1250;
+        }
     }
 }
 
@@ -268,9 +280,10 @@ function newConnection(socket) {
     function printNicks(data) {
         socket.player = data;
         if (players.length == 0) {
+            gameStarted = false;
             lines = [];
             socket.emit("serverReset");
-            seconds = 10;
+            seconds = totalSeconds;
             socket.player.isPlaying = true;
             data.isPlaying = true;
             data.socket = socket.id;
@@ -278,10 +291,15 @@ function newConnection(socket) {
             lastPlayer = data;
             players.push(data);
             guessWord = randomWord();
-            intervalId = setInterval(showHint, Math.floor(90 / guessWord.length - 1) * 1000);
+            time = Math.floor(totalSeconds / guessWord.length-1) * 1250;
+            (function repeat() {
+                showHint();
+                intervalId=setTimeout(repeat, time);
+            })();
             guessWordToSent = new Array(guessWord.length + 1).join('-');
             socket.emit("isPlaying", guessWord);
         } else {
+            gameStarted = true;
             data.socket = socket.id;
             players.push(data);
             socket.broadcast.emit("clientName", data);
@@ -335,15 +353,17 @@ function newConnection(socket) {
     }
 
     function showHint() {
-        guessWordToSent = replaceAt(guessWordToSent, position, guessWord.charAt(position));
-        for (let player of players) {
-            if (!player.isPlaying) {
-                socket.broadcast.to(player.socket).emit("hint", guessWordToSent);
-                socket.emit("hint", guessWordToSent);
+        if (gameStarted) {
+            guessWordToSent = replaceAt(guessWordToSent, position, guessWord.charAt(position));
+            for (let player of players) {
+                if (!player.isPlaying) {
+                    socket.broadcast.to(player.socket).emit("hint", guessWordToSent);
+                    socket.emit("hint", guessWordToSent);
 
+                }
             }
+            position++;
         }
-        position++;
     }
 
     function returnTime() {
@@ -388,6 +408,7 @@ function newConnection(socket) {
 
         socket.emit("updatePoints", {winner: winnerPlayer, player: drawingPlayer});
         socket.broadcast.emit("updatePoints", {winner: winnerPlayer, player: drawingPlayer});
+
 
         ////
         // socket.emit("isPlaying", players[winnerIndex]);

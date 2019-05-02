@@ -47,6 +47,7 @@ module.exports = {
     Player: Player
 }
 
+
 //Creates the canvas and sets the functions that will receive data from the server
 function setup() {
     let canvas = createCanvas(760, 550);
@@ -67,6 +68,15 @@ function setup() {
     socket.on("updatePoints", updatePoints);
     socket.on("updatePlayer", updatePlayer);
     socket.on("hint", updateHiddenWord);
+
+    document.getElementById("message")
+        .addEventListener("keyup", function (event) {
+            event.preventDefault();
+            if (event.keyCode === 13) {
+                document.getElementById("send").click();
+            }
+        });
+
 }
 
 
@@ -83,7 +93,6 @@ function setCurrentTime(seconds) {
 
 function setGuessingWord(guessWord) {
     let string = new Array(guessWord + 1).join('-');
-    console.log(string);
     var node = document.createElement("P");
     var textnode = document.createTextNode(string);
     node.appendChild(textnode);
@@ -129,7 +138,7 @@ function askNick() {
 
 //Every time any client connects, the server will push all the data to him
 function refreshData(data) {
-    strokeWeight(20);
+    strokeWeight(10);
     let l = new Line(data.x, data.y, data.x1, data.y1, data.color);
     l.drawLine();
 }
@@ -151,7 +160,6 @@ function addMessage(msg) {
 }
 
 function addClient(p) {
-    console.log(p);
     var node = document.createElement("P");
     node.className = "otherPlayer";
     node.id = 'player' + p.name;
@@ -180,8 +188,6 @@ function finishGame(data) {
         button.disabled = true;
         socket.emit('endGame', myPlayer);
     }
-
-
 }
 
 function updatePoints(data) {
@@ -214,7 +220,7 @@ function whiteCanvas() {
  */
 
 function updateCanvas(data) {
-    strokeWeight(20);
+    strokeWeight(10);
     let l = new Line(data.x, data.y, data.x1, data.y1, data.color);
     l.drawLine();
 }
@@ -223,7 +229,7 @@ function updateCanvas(data) {
 function mouseDragged() {
     if (myPlayer.isPlaying) {
         let l = new Line(mouseX, mouseY, pmouseX, pmouseY, getCurrentColor());
-        strokeWeight(20);
+        strokeWeight(10);
         l.drawLine();
         socket.emit("mouse", l);
     }
