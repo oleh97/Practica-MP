@@ -71,8 +71,8 @@ function setup() {
 
 
 function updateHiddenWord(guessWord) {
-    document.getElementById('wordToGuess').innerText = guessWord;
-    console.log(myPlayer);
+    if (!myPlayer.isPlaying)
+        document.getElementById('wordToGuess').innerText = guessWord;
 }
 
 function setCurrentTime(seconds) {
@@ -234,7 +234,7 @@ function updatePlayer(data) {
     console.log(data);
     if (data.correct) {
         var node = document.getElementById("wordToGuess");
-        node.innerText = "Te toca dibujar : " + word;
+        node.innerText = "";
         let button = document.getElementById('send');
         button.disabled = true;
         let colorButton = document.getElementById('html5colorpicker');
@@ -244,7 +244,8 @@ function updatePlayer(data) {
 
     } else {
         var node = document.getElementById("wordToGuess");
-        node.innerText = "Te toca dibujar : " + word;
+        node.innerText = ""
+        myPlayer.isPlaying = false;
         let button = document.getElementById('send');
         button.disabled = false;
         let colorButton = document.getElementById('html5colorpicker');

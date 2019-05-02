@@ -22,7 +22,7 @@ var words = [];
 var players = [];
 var currentPlayer;
 var guessWord;
-var seconds = 30;
+var seconds = 90;
 var position = 0;
 var guessWordToSent;
 var intervalId;
@@ -120,23 +120,44 @@ function changeTime() {
     if (seconds > 0) {
         seconds--;
     } else {
-        //console.log(players);
         if (players.length > 1) {
-            players[players.indexOf(currentPlayer)].isPlaying = false;
-            io.to(players[players.indexOf(currentPlayer)].socket).emit("updatePlayer", {
-                correct: false,
-                player: players[players.indexOf(currentPlayer)]
-            });
-            for (let player of players) {
+            var i = 0;
+            //console.log(players);
+            for (player of players) {
                 if (player.hasWon) {
-                    currentPlayer = player;
-                    player.isPlaying = true;
-                    io.to(player.socket).emit("updatePlayer", {correct: true, player: player})
+                    i++;
                     break;
                 }
             }
+            if (i != 0) {
+                players[players.indexOf(currentPlayer)].isPlaying = false;
+                io.to(players[players.indexOf(currentPlayer)].socket).emit("updatePlayer", {
+                    correct: false,
+                    player: players[players.indexOf(currentPlayer)]
+                });
+                for (let player of players) {
+                    if (player.hasWon) {
+                        currentPlayer = player;
+                        player.isPlaying = true;
+                        player.hasWon = false;
+                        guessWord=randomWord();
+                        guessWordToSent = new Array(guessWord.length + 1).join('-');
+                        position=0;
+                        io.to(player.socket).emit("updatePlayer", {correct: true, player: player})
+                        io.to(player.socket).emit("isPlaying", guessWord);
+                        break;
+                    }
+                }
+                for (let player of players) {
+                    if (!player.isPlaying) {
+                        io.to(player.socket).emit("getGuessingWord", guessWord.length);
+                        break;
+                    }
+                }
+            }
+
         }
-        seconds = 30;
+        seconds = 90;
     }
 }
 
@@ -203,7 +224,7 @@ function newConnection(socket) {
     function printNicks(data) {
         socket.player = data;
         if (players.length == 0) {
-            seconds = 30;
+            seconds = 90;
             socket.player.isPlaying = true;
             data.isPlaying = true;
             data.socket = socket.id;
@@ -271,8 +292,8 @@ function newConnection(socket) {
         for (let player of players) {
             if (!player.isPlaying) {
                 socket.broadcast.to(player.socket).emit("hint", guessWordToSent);
-            }else{
-                console.log(player);
+                socket.emit("hint", guessWordToSent);
+
             }
         }
         position++;
@@ -282,9 +303,7 @@ function newConnection(socket) {
         socket.emit("currentTime", seconds);
     }
 
-
     socket.on("checkCorrectWord", checkClientWord);
-
     function checkClientWord(word) {
         if (word == guessWord) {
             let index = players.indexOf(socket.player);
@@ -292,7 +311,6 @@ function newConnection(socket) {
             players[index].hasWon = true;
             socket.emit("correctWord", {correct: true, msg: null});
         } else {
-
             socket.emit("correctWord", {correct: false, msg: word});
         }
     }
