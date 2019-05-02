@@ -238,14 +238,16 @@ function updatePlayer(data) {
         let button = document.getElementById('send');
         button.disabled = true;
         let colorButton = document.getElementById('html5colorpicker');
-        colorButton.disabled = true;
+        colorButton.disabled = false;
         let resetButton = document.getElementById('reset');
-        resetButton.disabled = true;
+        resetButton.disabled = false;
+        reset();
 
     } else {
         var node = document.getElementById("wordToGuess");
         node.innerText = ""
         myPlayer.isPlaying = false;
+        myPlayer.hasWon = false;
         let button = document.getElementById('send');
         button.disabled = false;
         let colorButton = document.getElementById('html5colorpicker');
