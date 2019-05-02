@@ -32,6 +32,7 @@ class Player {
 
 var myPlayer = new Player();
 var sec = 0;
+var hasWon = false;
 
 //Gets the color that the client has selected
 function getCurrentColor() {
@@ -155,6 +156,7 @@ function addClient(p) {
 }
 
 function finishGame() {
+    hasWon = true;
     socket.emit('endGame', myPlayer);
 }
 
@@ -175,12 +177,24 @@ function sendMessage() {
     let msg = document.getElementById("message").value;
     if (!msg.length <= 0) {
         socket.emit("checkCorrectWord", msg);
-        var node = document.createElement("P");                 // Create a <li> node
-        var textnode = document.createTextNode(msg);         // Create a text node
-        node.appendChild(textnode);                              // Append the text to <li>
-        document.getElementById("mensajes").appendChild(node);
-        document.getElementById("message").value = '';
-        socket.emit("chatMessage", myPlayer.name+': '+msg);
+        if(!hasWon) {
+            var node = document.createElement("P");                 // Create a <li> node
+            var textnode = document.createTextNode(msg);         // Create a text node
+            node.appendChild(textnode);                              // Append the text to <li>
+            document.getElementById("mensajes").appendChild(node);
+            document.getElementById("message").value = '';
+            socket.emit("chatMessage", myPlayer.name+': '+msg);
+        }
+        else {
+            var node = document.createElement("P");                 // Create a <li> node
+            msg = 'Player: '+ myPlayer.name+ ' has guessed the word!'
+            var textnode = document.createTextNode(msg);         // Create a text node
+            node.appendChild(textnode);                              // Append the text to <li>
+            document.getElementById("mensajes").appendChild(node);
+            document.getElementById("message").value = '';
+            socket.emit("chatMessage", msg);
+        }
+
     }
 }
 
