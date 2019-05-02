@@ -33,7 +33,7 @@ Abrir ``` localhost ``` en el navegador
 ===================
 -   [1. Introducción](#Introduccion)
 	-   [1.1 Propósito](#Proposito)
-    	-   [1.2 Glosario](#Glosario)
+	-   [1.2 Glosario](#Glosario)
     
 -   [2. Descripción General](#D.General)
    	-   [2.1 Entorno del Sistema](#E.Sistema)
@@ -61,8 +61,8 @@ Abrir ``` localhost ``` en el navegador
     
 
 
-1 INTRODUCCIÓN<a name="Introduccion"></a>
-===============
+## 1- INTRODUCCIÓN<a name="Introduccion"></a>
+
 La aplicación consistirá en hacer un pinturillo que tendrá tres secciones:
 
 <a href="https://ibb.co/1Q9BFGS"><img src="https://i.ibb.co/dMQX84h/Captura-de-pantalla-2019-05-02-a-las-13-00-58.png" alt="Captura-de-pantalla-2019-05-02-a-las-13-00-58" border="0"></a>
@@ -71,10 +71,10 @@ Tendrá tres secciones, pantalla principal, ranking de puntuaciones y chat.
 Será una aplicación multijugador en la que una persona será la encargada de pintar, tendrá que pintar un objeto que se le mostrará solo a él sacado de una lista de objetos predefinidos (o una base de datos web). El resto de jugadores intentará adivinar el objeto usando el chat. Cada cierto tiempo el programa rellenará parte de las letras del objeto como pista. Según 
 el tiempo que se tarde en adivinar la palabra se recibirá más o menos puntuación. Una vez que se adivine la palabra o se termine el tiempo límite para adivinar la palabra, el “pintor” pasará a ser un jugador normal y corriente y otro jugador pasará a ser el nuevo pintor.
 
-1.1 PROPÓSITO<a name="Proposito"></a>
+### 1.1. Propósito<a name="Proposito"></a>
 El presente documento tiene como propósito definir las especificaciones funcionales, no funcionales y del sistema para la implementación de una aplicación WEB que permitirá jugar en línea con otros jugadores en una sala al pinturillo.
 
-1.2 Glosario<a name="Glosario"></a>
+### 1.2. Glosario<a name="Glosario"></a>
 
 | Términos	| Descripción  							     |
 |---------------|------------------------------------------------------------------- |
@@ -86,14 +86,14 @@ El presente documento tiene como propósito definir las especificaciones funcion
 | Adivinar	| Descubrir algo de forma intuitiva, sin utilizar procedimientos basados en la razón ni en los conocimientos científicos|
 
 
-2 Descripción General<a name="D.General"></a>
+## 2- DESCRIPCIÓN GENERAL<a name="D.General"></a>
 
-2.2 Entorno del Sistema<a name="E.Sistema"></a>
+### 2.2. Entorno del Sistema<a name="E.Sistema"></a>
 El Pinturillo es un juego multijugador en el que los jugadores acceden a la página web del juego a través de internet mediante el propio navegador del usuario.
 
-2.2 Especificación de Requisitos Funcionales<a name="E.R.S"></a>
+### 2.2. Especificación de Requisitos Funcionales<a name="E.R.S"></a>
 
-2.2.1 Casos de uso dibujantes<a name="C.Dibujantes"></a>
+#### 2.2.1. Casos de uso dibujantes<a name="C.Dibujantes"></a>
  - Descripción: El juego tiene que tener un chat por el cual los jugadores que observen al otro dibujar, puedan intentar adivinar la palabra. El jugador que dibuja tendrá el chat desactivado.
 
 <a href="https://ibb.co/BKM4JRs"><img src="https://i.ibb.co/JFJxTPk/Captura-de-pantalla-2019-05-02-a-las-13-01-09.png" alt="Captura-de-pantalla-2019-05-02-a-las-13-01-09" border="0"></a>
@@ -115,7 +115,7 @@ Paso por paso:
 4. El resto de jugadores intenta adivinar la palabra.
 5. Al pasar el minuto el turno pasa al siguiente jugador.
 
-2.2.2 Casos de uso y componentes lógica del juego<a name="C.Logica"></a>
+#### 2.2.2. Casos de uso y componentes lógica del juego<a name="C.Logica"></a>
 - Descripción: 1 minuto por turno.
 
 <a href="https://ibb.co/kcXs8XF"><img src="https://i.ibb.co/SvB4nBp/Captura-de-pantalla-2019-05-02-a-las-13-01-26.png" alt="Captura-de-pantalla-2019-05-02-a-las-13-01-26" border="0"></a>
@@ -141,7 +141,7 @@ Paso por paso:
 <a href="https://ibb.co/LNG98RW"><img src="https://i.ibb.co/WVTB65w/Captura-de-pantalla-2019-05-02-a-las-13-01-40.png" alt="Captura-de-pantalla-2019-05-02-a-las-13-01-40" border="0"></a>
 
 
-2.2.3 Casos de uso y componentes Ranking<a name="C.Ranking"></a>
+#### 2.2.3. Casos de uso y componentes Ranking<a name="C.Ranking"></a>
 
 -Descripción: La palabra a adivinar se representará mediante barras bajas “_”, tantas como letras tenga esta.
 
@@ -164,7 +164,7 @@ Paso por paso:
 
 <a href="https://ibb.co/sJ4cg67"><img src="https://i.ibb.co/930BpVP/Captura-de-pantalla-2019-05-02-a-las-13-01-53.png" alt="Captura-de-pantalla-2019-05-02-a-las-13-01-53" border="0"></a>
 
-2.2.4 Componentes para pintar<a name="C.Pintar"></a>
+#### 2.2.4. Componentes para pintar<a name="C.Pintar"></a>
 - Descripción: Crear un canvas (una pizarra) en la que poder dibujar usando el ratón. 
 . Incluir cambios de grosor del trazo
 . Incluir cambios de color para el trazo
@@ -176,7 +176,7 @@ Paso por paso:
 3. El jugador que dibuja hace click en la paleta de colores para cambiar el color.
 4. El jugador que dibuja pinta en el lienzo.
 
-2.2.5 Casos de uso Acceder<a name="C.Acceder"></a>
+#### 2.2.5. Casos de uso Acceder<a name="C.Acceder"></a>
 -Descripción: Para acceder al juego el usuario tendrá que seleccionar un nickname.
 
 <a href="https://ibb.co/3Fm7CXB"><img src="https://i.ibb.co/R6T9Dnz/Captura-de-pantalla-2019-05-02-a-las-13-02-00.png" alt="Captura-de-pantalla-2019-05-02-a-las-13-02-00" border="0"></a>
@@ -188,27 +188,27 @@ Paso por paso:
 
 <a href="https://imgbb.com/"><img src="https://i.ibb.co/98LV5qN/Captura-de-pantalla-2019-05-02-a-las-13-02-04.png" alt="Captura-de-pantalla-2019-05-02-a-las-13-02-04" border="0"></a>
 
-2.3 Caracteristicas del Usuario<a name="C.Usuario"></a>
+### 2.3. Caracteristicas del Usuario<a name="C.Usuario"></a>
 Se espera de los jugadores que tengan acceso a internet y puedan hacer uso de un motor de búsqueda. También se espera del usuario que pueda introducir datos por teclado y hacer uso del ratón ya que la pantalla de inicio requiere un nick y ya dentro se tendrá que hacer uso del chat y de la pizarra para dibujar una palabra proporcionada por el sistema.
 
-2.4 Requisitos No Funcionales<a name="R.N.F"></a>
+### 2.4. Requisitos No Funcionales<a name="R.N.F"></a>
 El Pinturillo estará en un servidor que será el encargado de establecer la conexión entre los distintos jugadores de forma que todos vean lo que se está dibujando, también se encargará de gestionar los mensajes del chat.
 
 
 
-3 Especificación de Requisitos<a name="E.Requisitos"></a>
+## 3- ESPECIFICACIÓN DE REQUISITOS<a name="E.Requisitos"></a>
 
-3.1 Requisitos de la interfaz externa<a name="R.I.E"></a>
+### 3.1. Requisitos de la interfaz externa<a name="R.I.E"></a>
 
-3.1.1 API<a name="API"></a>
+#### 3.1.1. API<a name="API"></a>
 La aplicación hace uso de una API, es un conjunto de funciones y procedimientos que cumplen una o muchas funciones con el fin de ser utilizadas por otro software. Las siglas API vienen del inglés Application Programming Interface.
 Una API nos permite implementar las funciones y procedimientos que engloban en nuestro proyecto sin la necesidad de programarlas de nuevo. En términos de programación, es una capa de abstracción.
 
-3.1.2 NODE<a name="NODE"></a>
+#### 3.1.2 NODE<a name="NODE"></a>
 La aplicación hace uso de Node.js  que es un entorno en tiempo de ejecución multiplataforma, de código abierto, para la capa del servidor (pero no limitándose a ello) basado en el lenguaje de programación ECMAScript, asíncrono, con I/O de datos en una arquitectura orientada a eventos y basado en el motor V8 de Google. Fue creado con el enfoque de ser útil en la creación de programas de red altamente escalables, como por ejemplo, servidores web.
 
 
-3.2 Requisitos Funcionales<a name="R.F"></a>
+### 3.2. Requisitos Funcionales<a name="R.F"></a>
 
 |                   |  Requisito     													   									|
 |-------------------|------------------------------------------------------------ |
@@ -312,25 +312,25 @@ La aplicación hace uso de Node.js  que es un entorno en tiempo de ejecución mu
 | Postcondición			| EL pincel pinta del color elegido														|
 
 
-3.3 Requisitos No Funcionales<a name="R.N.Funcionales"></a>
+### 3.3- Requisitos No Funcionales<a name="R.N.Funcionales"></a>
 
-3.3.1 Logical Structure od the Data<a name="LSOD"></a>
+#### 3.3.1. Logical Structure od the Data<a name="LSOD"></a>
 
 <a href="https://ibb.co/6JcW3v7"><img src="https://i.ibb.co/WpN2bD4/Captura-de-pantalla-2019-05-02-a-las-13-02-20.png" alt="Captura-de-pantalla-2019-05-02-a-las-13-02-20" border="0"></a>
 
-3.4 Arquitectura del Sistema<a name="A.Sistema"></a>
+### 3.4. Arquitectura del Sistema<a name="A.Sistema"></a>
 
-3.4.1 Patrón de Arquitectura<a name="P.Arquitectura"></a>
+#### 3.4.1. Patrón de Arquitectura<a name="P.Arquitectura"></a>
 Modelo Vista Controlador (MVC)
 Arquitectura Cliente Servidor
 
-3.4.2 Lenguaje de Diseño<a name="L.Diseño"></a>
+#### 3.4.2. Lenguaje de Diseño<a name="L.Diseño"></a>
 Lenguaje de Modelado Unificado(UML)
 
-3.4.3 Lenguaje de Programación<a name="L.Programacion"></a>
+#### 3.4.3. Lenguaje de Programación<a name="L.Programacion"></a>
 JavaScript
 HTML
 CSS
 
-3.4.4 Entorno de Ejecución<a name="E.Ejecucion"></a>
+#### 3.4.4. Entorno de Ejecución<a name="E.Ejecucion"></a>
 Node.js
