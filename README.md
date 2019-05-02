@@ -38,13 +38,13 @@ Abrir ``` localhost ``` en el navegador
 -   [2. Descripción General](#D.General)
    	-   [2.1 Entorno del Sistema](#E.Sistema)
 	-   [2.2 Especificación de Requisitos Funcionales](#E.R.S)
-    		-   [2.2.1 Casos de uso dibujantes](#C.Dibujantes)
+		-   [2.2.1 Casos de uso dibujantes](#C.Dibujantes)
 		-   [2.2.2 Casos de uso y componentes lógica del juego](#C.Logica)
 		-   [2.2.3 Casos de uso y componentes ranking](#C.Ranking)
   		-   [2.2.4 Componentes para pintar](#C.Pintar)
 		-   [2.2.5 Casos de uso acceder](#C.Acceder)			
-    	-   [2.3 Caracteristicas del usuario](#C.Usuario)
-    	-   [2.4 Requisitos no Funcionales](#R.N.F)
+    -   [2.3 Caracteristicas del usuario](#C.Usuario)
+	-   [2.4 Requisitos no Funcionales](#R.N.F)
     
 -   [3. Especificación de Requisitos](#E.Requisitos)
 	-   [3.1 Requisitos de la interfaz externa](#R.I.E)
@@ -53,11 +53,11 @@ Abrir ``` localhost ``` en el navegador
 	-   [3.2 Requisitos Funcionales](#R.F)
 	-   [3.3 Requisitos NO Funcionales](#R.N.Funcionales)
 		-   [3.3.1 Logical Structure of the Data](#LSOD)
-    	-   [3.4 Arquitectura del Sistema](#A.Sistema)
-      		-   [3.4.1 Patron de Arquitectura](#P.Arquitectura)
-			-   [3.4.2 Lenguaje de Diseño](#L.Diseño)
-			-   [3.4.3 Lenguaje de Programación](#L.Programacion)
-			-   [3.4.4 Entorno de Ejecución](#E.Ejecucion)
+	-   [3.4 Arquitectura del Sistema](#A.Sistema)
+		-   [3.4.1 Patron de Arquitectura](#P.Arquitectura)
+		-   [3.4.2 Lenguaje de Diseño](#L.Diseño)
+		-   [3.4.3 Lenguaje de Programación](#L.Programacion)
+		-   [3.4.4 Entorno de Ejecución](#E.Ejecucion)
     
 
 
@@ -93,7 +93,7 @@ El Pinturillo es un juego multijugador en el que los jugadores acceden a la pág
 
 2.2 Especificación de Requisitos Funcionales<a name="E.R.S"></a>
 
-2.2.1 Casos de uso dibujantes<a name="C.dibujantes"></a>
+2.2.1 Casos de uso dibujantes<a name="C.Dibujantes"></a>
  - Descripción: El juego tiene que tener un chat por el cual los jugadores que observen al otro dibujar, puedan intentar adivinar la palabra. El jugador que dibuja tendrá el chat desactivado.
 
 <a href="https://ibb.co/BKM4JRs"><img src="https://i.ibb.co/JFJxTPk/Captura-de-pantalla-2019-05-02-a-las-13-01-09.png" alt="Captura-de-pantalla-2019-05-02-a-las-13-01-09" border="0"></a>
@@ -327,10 +327,10 @@ Arquitectura Cliente Servidor
 3.4.2 Lenguaje de Diseño<a name="L.Diseño"></a>
 Lenguaje de Modelado Unificado(UML)
 
-3.4.3 Lenguaje de Programación<a name="L.Programación"></a>
+3.4.3 Lenguaje de Programación<a name="L.Programacion"></a>
 JavaScript
 HTML
 CSS
 
-3.4.4 Entorno de Ejecución<a name="A.Sistema"></a>
+3.4.4 Entorno de Ejecución<a name="E.Ejecucion"></a>
 Node.js
