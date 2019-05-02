@@ -1,5 +1,6 @@
 var socket;
 var word = [];
+
 //Class line to create the objects we will store
 class Line {
     constructor(x, y, x1, y1, color) {
@@ -22,6 +23,7 @@ class Player {
         this.name = name;
         this.score = score;
         this.isPlaying = isPlaying;
+        this.hasWon = false;
         this.socket;
     }
 
@@ -41,8 +43,8 @@ function getCurrentColor() {
 
 //So we can use the lines objects in the server side
 module.exports = {
-    Line:Line,
-    Player:Player
+    Line: Line,
+    Player: Player
 }
 
 //Creates the canvas and sets the functions that will receive data from the server
@@ -63,12 +65,14 @@ function setup() {
     socket.on("currentTime", setCurrentTime);
     socket.on("correctWord", finishGame);
     socket.on("updatePoints", updatePoints);
+    socket.on("updatePlayer", updatePlayer);
     socket.on("hint", updateHiddenWord);
 }
 
 
 function updateHiddenWord(guessWord) {
     document.getElementById('wordToGuess').innerText = guessWord;
+    console.log(myPlayer);
 }
 
 function setCurrentTime(seconds) {
@@ -78,7 +82,7 @@ function setCurrentTime(seconds) {
 
 
 function setGuessingWord(guessWord) {
-    let string = new Array(guessWord + 1).join( '-' );
+    let string = new Array(guessWord + 1).join('-');
     console.log(string);
     var node = document.createElement("P");
     var textnode = document.createTextNode(string);
@@ -101,7 +105,7 @@ function setPlayerPlaying(word) {
 }
 
 function removePlayer(player) {
-    var removedPlayer = document.getElementById('player'+player.name);
+    var removedPlayer = document.getElementById('player' + player.name);
     removedPlayer.remove();
 }
 
@@ -109,11 +113,11 @@ function askNick() {
     var name = window.prompt("Escribe tu nick: ");
     var node = document.createElement("P");
     node.className = "myPlayer";
-    node.id = 'player'+name;
+    node.id = 'player' + name;
     myPlayer.name = name;
     myPlayer.score = 0;
     myPlayer.isPlaying = false;
-    var textnode = document.createTextNode(myPlayer.name + ' ----- Puntos: '+ myPlayer.score);
+    var textnode = document.createTextNode(myPlayer.name + ' ----- Puntos: ' + myPlayer.score);
     let button = document.getElementById('html5colorpicker');
     let resetButton = document.getElementById('reset');
     button.disabled = true;
@@ -145,31 +149,51 @@ function addMessage(msg) {
         document.getElementById("mensajes").appendChild(node);
     }
 }
+
 function addClient(p) {
     console.log(p);
     var node = document.createElement("P");
     node.className = "otherPlayer";
-    node.id = 'player'+p.name;
-    var textnode = document.createTextNode(p.name + ' ----- Puntos: '+ p.score);
+    node.id = 'player' + p.name;
+    var textnode = document.createTextNode(p.name + ' ----- Puntos: ' + p.score);
     node.appendChild(textnode);
     document.getElementById("points").appendChild(node);
 }
 
-function finishGame() {
-    hasWon = true;
-    socket.emit('endGame', myPlayer);
+function finishGame(data) {
+    if (!data.correct) {
+        var node = document.createElement("P");                 // Create a <li> node
+        var textnode = document.createTextNode(data.msg);         // Create a text node
+        node.appendChild(textnode);                              // Append the text to <li>
+        document.getElementById("mensajes").appendChild(node);
+        document.getElementById("message").value = '';
+        socket.emit("chatMessage", myPlayer.name + ': ' + data.msg);
+    } else {
+        var node = document.createElement("P");                 // Create a <li> node
+        msg = 'Player: ' + myPlayer.name + ' has guessed the word!'
+        var textnode = document.createTextNode(msg);         // Create a text node
+        node.appendChild(textnode);                              // Append the text to <li>
+        document.getElementById("mensajes").appendChild(node);
+        document.getElementById("message").value = '';
+        socket.emit("chatMessage", msg);
+        let button = document.getElementById('send');
+        button.disabled = true;
+        socket.emit('endGame', myPlayer);
+    }
+
+
 }
 
 function updatePoints(data) {
     console.log(data);
-    let node = document.getElementById('player'+data.winner.name);
+    let node = document.getElementById('player' + data.winner.name);
     let name = node.innerText.substring(0, node.innerText.lastIndexOf(':'));
-    name+=' '+data.winner.score;
+    name += ': ' + data.winner.score;
     node.innerText = name;
 
-    node = document.getElementById('player'+data.player.name);
+    node = document.getElementById('player' + data.player.name);
     name = node.innerText.substring(0, node.innerText.lastIndexOf(':'));
-    name+=' '+data.player.score;
+    name += ': ' + data.player.score;
     node.innerText = name;
 }
 
@@ -177,24 +201,6 @@ function sendMessage() {
     let msg = document.getElementById("message").value;
     if (!msg.length <= 0) {
         socket.emit("checkCorrectWord", msg);
-        if(!hasWon) {
-            var node = document.createElement("P");                 // Create a <li> node
-            var textnode = document.createTextNode(msg);         // Create a text node
-            node.appendChild(textnode);                              // Append the text to <li>
-            document.getElementById("mensajes").appendChild(node);
-            document.getElementById("message").value = '';
-            socket.emit("chatMessage", myPlayer.name+': '+msg);
-        }
-        else {
-            var node = document.createElement("P");                 // Create a <li> node
-            msg = 'Player: '+ myPlayer.name+ ' has guessed the word!'
-            var textnode = document.createTextNode(msg);         // Create a text node
-            node.appendChild(textnode);                              // Append the text to <li>
-            document.getElementById("mensajes").appendChild(node);
-            document.getElementById("message").value = '';
-            socket.emit("chatMessage", msg);
-        }
-
     }
 }
 
@@ -215,11 +221,36 @@ function updateCanvas(data) {
 
 //Anytime the client drags the mouse, it will create new lines and emit them to the server
 function mouseDragged() {
-    if(myPlayer.isPlaying) {
+    if (myPlayer.isPlaying) {
         let l = new Line(mouseX, mouseY, pmouseX, pmouseY, getCurrentColor());
         strokeWeight(20);
         l.drawLine();
         socket.emit("mouse", l);
+    }
+}
+
+function updatePlayer(data) {
+    myPlayer = data.player;
+    console.log(data);
+    if (data.correct) {
+        var node = document.getElementById("wordToGuess");
+        node.innerText = "Te toca dibujar : " + word;
+        let button = document.getElementById('send');
+        button.disabled = true;
+        let colorButton = document.getElementById('html5colorpicker');
+        colorButton.disabled = true;
+        let resetButton = document.getElementById('reset');
+        resetButton.disabled = true;
+
+    } else {
+        var node = document.getElementById("wordToGuess");
+        node.innerText = "Te toca dibujar : " + word;
+        let button = document.getElementById('send');
+        button.disabled = false;
+        let colorButton = document.getElementById('html5colorpicker');
+        colorButton.disabled = true;
+        let resetButton = document.getElementById('reset');
+        resetButton.disabled = true;
     }
 }
 
