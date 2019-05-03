@@ -16,18 +16,32 @@ Juego tipo "Pinturillo" en el que un jugador dibuja y todos los demás intentan 
 
 
 ## Como lanzarlo
-Instalar Node
-Abrir el terminal en la carpeta del proyecto
+Instalar Node desde https://nodejs.org/es/download/
+Abrir el terminal en la carpeta donde se haya clonado el proyecto
+```
+cd ......./Practica-Mp
+```
+
 Lanzar solo la primera vez:
 ```
 npm install
 ```
-Cada vez que se quiera lanzar:
+Cada vez que se quiera lanzar (Desde la carpeta del proyecto):
 ```
 node server.js
 ```
-Abrir ``` localhost ``` en el navegador
+Abrir ``` localhost ``` en el navegador. 
 
+Introducir un nombre no nulo en el pop-up. 
+
+Se mostrará la vista del jugador que dibuja y se mantendrá a la espera de que entre otro jugador por red. 
+
+Basta con abrir otra pestaña en ```localhost``` en el navegador e introducir otro nombre de jugador. 
+
+Se iniciará la partida una vez haya dos o mas jugadores y empezará a contar el tiempo... . 
+
+
+## ENJOY
 
 ## Especificación de requerimientos de software (SRS)
 ===================
